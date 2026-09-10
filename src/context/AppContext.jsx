@@ -50,6 +50,28 @@ export function AppProvider({ children }) {
     return { patientName: null, doctorLoggedIn: false };
   });
 
+  const [theme, setTheme] = useState(() => {
+    const saved = localStorage.getItem('skd_theme');
+    if (saved === 'light' || saved === 'dark') return saved;
+    return 'dark';
+  });
+
+  useEffect(() => {
+    localStorage.setItem('skd_theme', theme);
+    const root = document.documentElement;
+    if (theme === 'light') {
+      root.classList.add('light');
+      root.classList.remove('dark');
+    } else {
+      root.classList.add('dark');
+      root.classList.remove('light');
+    }
+  }, [theme]);
+
+  const toggleTheme = useCallback(() => {
+    setTheme((prev) => (prev === 'light' ? 'dark' : 'light'));
+  }, []);
+
   useEffect(() => {
     localStorage.setItem('skd_appointments', JSON.stringify(appointments));
   }, [appointments]);
@@ -136,6 +158,9 @@ export function AppProvider({ children }) {
   return (
     <AppContext.Provider
       value={{
+        theme,
+        setTheme,
+        toggleTheme,
         appointments,
         addAppointment,
         updateStatus,

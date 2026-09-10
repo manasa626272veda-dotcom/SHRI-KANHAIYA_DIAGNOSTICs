@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { useAppState } from '../context/AppContext';
 
 const MONTH_NAMES = [
   "January", "February", "March", "April", "May", "June",
@@ -8,6 +9,9 @@ const MONTH_NAMES = [
 const DAY_NAMES = ["SU", "MO", "TU", "WE", "TH", "FR", "SA"];
 
 export function DatePickerCalendar({ value, onChange }) {
+  const { theme } = useAppState();
+  const isLight = theme === 'light';
+
   const today = new Date();
   today.setHours(0, 0, 0, 0);
 
@@ -79,23 +83,31 @@ export function DatePickerCalendar({ value, onChange }) {
   };
 
   return (
-    <div className="rounded-2xl border border-white/15 bg-[#06192E]/90 backdrop-blur-xl p-4 sm:p-5 shadow-xl text-white">
+    <div className={`rounded-2xl border backdrop-blur-xl p-4 sm:p-5 shadow-xl transition-colors ${
+      isLight
+        ? 'border-slate-200/90 bg-white/95 text-slate-900'
+        : 'border-white/15 bg-[#06192E]/90 text-white'
+    }`}>
       <div className="flex items-center justify-between mb-4">
         <button
           type="button"
           onClick={prevMonth}
           disabled={!canPrev}
-          className="grid h-8 w-8 place-items-center rounded-full text-white hover:bg-white/10 disabled:opacity-30 disabled:pointer-events-none transition-colors cursor-pointer"
+          className={`grid h-8 w-8 place-items-center rounded-full disabled:opacity-30 disabled:pointer-events-none transition-colors cursor-pointer ${
+            isLight ? 'text-slate-700 hover:bg-slate-100' : 'text-white hover:bg-white/10'
+          }`}
         >
           <ChevronLeft className="h-4.5 w-4.5" />
         </button>
-        <span className="font-display font-bold text-white text-base">
+        <span className={`font-display font-bold text-base ${isLight ? 'text-slate-900' : 'text-white'}`}>
           {MONTH_NAMES[month]} {year}
         </span>
         <button
           type="button"
           onClick={nextMonth}
-          className="grid h-8 w-8 place-items-center rounded-full text-white hover:bg-white/10 transition-colors cursor-pointer"
+          className={`grid h-8 w-8 place-items-center rounded-full transition-colors cursor-pointer ${
+            isLight ? 'text-slate-700 hover:bg-slate-100' : 'text-white hover:bg-white/10'
+          }`}
         >
           <ChevronRight className="h-4.5 w-4.5" />
         </button>
@@ -121,10 +133,10 @@ export function DatePickerCalendar({ value, onChange }) {
                 isSelected
                   ? 'bg-[#E92932] text-white shadow-[0_0_15px_rgba(233,41,50,0.6)] font-bold scale-105'
                   : cell.disabled
-                  ? 'text-slate-500 cursor-not-allowed opacity-35'
+                  ? isLight ? 'text-slate-300 cursor-not-allowed opacity-50' : 'text-slate-500 cursor-not-allowed opacity-35'
                   : cell.isToday
-                  ? 'ring-2 ring-[#E92932] text-white hover:bg-white/15'
-                  : 'text-slate-200 hover:bg-white/15 hover:text-white'
+                  ? isLight ? 'ring-2 ring-[#E92932] text-[#E92932] hover:bg-slate-100' : 'ring-2 ring-[#E92932] text-white hover:bg-white/15'
+                  : isLight ? 'text-slate-700 hover:bg-slate-100 hover:text-slate-900' : 'text-slate-200 hover:bg-white/15 hover:text-white'
               }`}
             >
               {cell.day}
@@ -132,7 +144,9 @@ export function DatePickerCalendar({ value, onChange }) {
           );
         })}
       </div>
-      <p className="mt-4 text-xs text-slate-300 text-center sm:text-left font-medium border-t border-white/10 pt-3">
+      <p className={`mt-4 text-xs text-center sm:text-left font-medium border-t pt-3 ${
+        isLight ? 'text-slate-500 border-slate-200' : 'text-slate-300 border-white/10'
+      }`}>
         Closed on Sundays • Bookable up to 60 days ahead
       </p>
     </div>

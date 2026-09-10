@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { CLINIC_INFO } from "../data/clinicData";
+import { useAppState } from "../context/AppContext";
 
 // ─── Intersection Observer Hook ───────────────────────────────────────────────
 function useReveal() {
@@ -82,28 +83,43 @@ const ECG_PATH = "M0,50 L40,50 L50,20 L60,80 L70,50 L120,50 L130,15 L140,85 L150
 
 // ─── Hero ─────────────────────────────────────────────────────────────────────
 function Hero() {
+  const { theme } = useAppState();
+  const isLight = theme === 'light';
+
   return (
-    <section id="home" className="relative min-h-screen flex flex-col justify-center overflow-hidden bg-transparent">
+    <section id="home" className={`relative min-h-screen flex flex-col justify-center overflow-hidden transition-colors duration-300 ${
+      isLight ? 'bg-gradient-to-br from-[#FFFFFF] via-[#F1F6FB] to-[#E5EFF8]' : 'bg-transparent'
+    }`}>
       {/* 1. Radial Deep Ambient Glow Gradient */}
       <div className="absolute inset-0 pointer-events-none z-0" style={{
-        background: "radial-gradient(circle at 50% 35%, rgba(233,41,50,0.18) 0%, rgba(10,36,58,0.75) 48%, transparent 85%)"
+        background: isLight
+          ? "radial-gradient(circle at 50% 20%, rgba(233,41,50,0.09) 0%, rgba(240,246,252,0.85) 50%, rgba(229,239,248,0.95) 85%)"
+          : "radial-gradient(circle at 50% 35%, rgba(233,41,50,0.18) 0%, rgba(10,36,58,0.75) 48%, transparent 85%)"
       }} />
 
       {/* 2. Top-Right Crimson Medical Light Orb */}
-      <div className="animate-hero-glow absolute top-10 right-10 w-[550px] h-[550px] rounded-full bg-[#E92932]/22 blur-[130px] pointer-events-none z-0" />
+      <div className={`animate-hero-glow absolute top-10 right-10 w-[550px] h-[550px] rounded-full pointer-events-none z-0 ${
+        isLight ? 'bg-[#E92932]/14 blur-[140px]' : 'bg-[#E92932]/22 blur-[130px]'
+      }`} />
 
       {/* 3. Top-Left Royal Cyan Light Orb */}
-      <div className="animate-hero-glow absolute -top-20 -left-20 w-[600px] h-[600px] rounded-full bg-[#0284C7]/18 blur-[150px] pointer-events-none z-0" style={{ animationDelay: "4.5s" }} />
+      <div className={`animate-hero-glow absolute -top-20 -left-20 w-[600px] h-[600px] rounded-full pointer-events-none z-0 ${
+        isLight ? 'bg-[#0284C7]/16 blur-[160px]' : 'bg-[#0284C7]/18 blur-[150px]'
+      }`} style={{ animationDelay: "4.5s" }} />
 
       {/* 4. Precision Grid Overlay */}
-      <div className="absolute inset-0 opacity-[0.07] pointer-events-none z-0 bg-medical-grid" />
+      <div className={`absolute inset-0 pointer-events-none z-0 bg-medical-grid ${
+        isLight ? 'opacity-[0.06]' : 'opacity-[0.07]'
+      }`} />
 
       {/* 5. Glowing ECG Wave Lines */}
-      <div className="absolute bottom-20 left-0 right-0 h-24 overflow-hidden opacity-25 pointer-events-none z-0">
+      <div className={`absolute bottom-20 left-0 right-0 h-24 overflow-hidden pointer-events-none z-0 ${
+        isLight ? 'opacity-35' : 'opacity-25'
+      }`}>
         <div className="ecg-scroll flex">
           {[...Array(4)].map((_, i) => (
             <svg key={i} width="530" height="100" viewBox="0 0 530 100" fill="none" className="flex-shrink-0 filter drop-shadow-[0_0_12px_rgba(233,41,50,0.85)]">
-              <path d={ECG_PATH} stroke="#FF4148" strokeWidth="2.5" fill="none" />
+              <path d={ECG_PATH} stroke="#E92932" strokeWidth="2.5" fill="none" />
             </svg>
           ))}
         </div>
@@ -114,39 +130,51 @@ function Hero() {
         {/* Left content */}
         <div className="space-y-8">
           {/* Status pill */}
-          <div className="pill-anim inline-flex items-center gap-2 px-4 py-2 rounded-full border text-xs font-semibold tracking-widest uppercase"
-            style={{ borderColor: "rgba(233,41,50,0.4)", background: "rgba(233,41,50,0.08)", color: "var(--red-accent)" }}>
-            <span className="w-2 h-2 rounded-full animate-pulse" style={{ background: "var(--red-accent)" }} />
+          <div className={`pill-anim inline-flex items-center gap-2 px-4 py-2 rounded-full border text-xs font-semibold tracking-widest uppercase ${
+            isLight
+              ? 'border-red-200/90 bg-white/95 text-[#E92932] shadow-[0_4px_20px_rgba(233,41,50,0.12)] backdrop-blur-md'
+              : 'border-[#E92932]/40 bg-[#E92932]/08 text-[#FF4148]'
+          }`}>
+            <span className="w-2.5 h-2.5 rounded-full animate-pulse bg-[#E92932] shadow-[0_0_8px_rgba(233,41,50,0.8)]" />
             Accepting New Patients
           </div>
 
           {/* Headline */}
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight text-white">
+          <h1 className={`text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight ${
+            isLight ? 'text-slate-900' : 'text-white'
+          }`}>
             <span className="block h1-line-1">Heart care that</span>
-            <span className="block h1-line-2" style={{ color: "var(--red-accent)", fontStyle: "italic" }}>reads the whole</span>
+            <span className="block h1-line-2 text-[#E92932] italic drop-shadow-[0_2px_10px_rgba(233,41,50,0.15)]">reads the whole</span>
             <span className="block h1-line-3">picture.</span>
           </h1>
 
           {/* Body */}
-          <p className="hero-body text-sm sm:text-base lg:text-lg leading-relaxed max-w-lg text-slate-300">
+          <p className={`hero-body text-sm sm:text-base lg:text-lg leading-relaxed max-w-lg ${
+            isLight ? 'text-slate-700 font-medium' : 'text-slate-300'
+          }`}>
             Dr. Sree Ranga P.C. has spent 18+ years in interventional cardiology, treating chest pain,
             arrhythmia and coronary disease at Shri Kanhaiya Diagnostics in Nandini Layout.
           </p>
 
           {/* CTAs */}
           <div className="hero-ctas flex flex-col sm:flex-row gap-3 sm:gap-4">
-            <Link to="/book-appointment" className="btn-shine inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full font-semibold text-white transition-all duration-300 hover:scale-105 hover:-translate-y-0.5 active:scale-95 cursor-pointer w-full sm:w-auto"
-              style={{ background: "var(--red)", boxShadow: "0 8px 30px rgba(233,41,50,0.45)" }}>
+            <Link to="/book-appointment" className="btn-shine inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full font-semibold text-white transition-all duration-300 hover:scale-105 hover:-translate-y-0.5 active:scale-95 cursor-pointer w-full sm:w-auto bg-[#E92932] shadow-[0_10px_35px_rgba(233,41,50,0.4)]">
               Book an Appointment
-              <ArrowRight size={16} />
+              <ArrowRight size={16} color="white" />
             </Link>
-            <a href="#about" className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full font-semibold border transition-all duration-300 hover:scale-105 hover:bg-white/10 active:scale-95 cursor-pointer text-white border-white/20 bg-white/5 w-full sm:w-auto">
+            <a href="#about" className={`inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full font-semibold border transition-all duration-300 hover:scale-105 active:scale-95 cursor-pointer w-full sm:w-auto ${
+              isLight
+                ? 'text-slate-800 border-slate-300/90 bg-white hover:bg-slate-50 shadow-[0_4px_16px_rgba(15,23,42,0.06)] hover:shadow-[0_8px_24px_rgba(15,23,42,0.1)]'
+                : 'text-white border-white/20 bg-white/5 hover:bg-white/10'
+            }`}>
               Meet the Doctor
             </a>
           </div>
 
           {/* Stats */}
-          <div className="hero-stats grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6 pt-4 border-t border-white/10">
+          <div className={`hero-stats grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-6 pt-4 border-t ${
+            isLight ? 'border-slate-200/90' : 'border-white/10'
+          }`}>
             {[
               { value: "18+", label: "Years in Cardiology" },
               { value: "12,000+", label: "Patients Treated" },
@@ -154,8 +182,8 @@ function Hero() {
               { value: "127+", label: "Reviews" },
             ].map(s => (
               <div key={s.label}>
-                <div className="text-2xl font-bold" style={{ color: "var(--red-accent)" }}>{s.value}</div>
-                <div className="text-xs mt-0.5 text-slate-400">{s.label}</div>
+                <div className="text-2xl font-bold text-[#E92932]">{s.value}</div>
+                <div className={`text-xs mt-0.5 ${isLight ? 'text-slate-600 font-medium' : 'text-slate-400'}`}>{s.label}</div>
               </div>
             ))}
           </div>
@@ -163,20 +191,30 @@ function Hero() {
 
         {/* Right — Doctor image */}
         <div className="relative hero-img mt-4 lg:mt-0">
-          <div className="relative rounded-3xl overflow-hidden shadow-[0_40px_80px_rgba(0,0,0,0.6),0_0_0_1px_rgba(220,228,234,0.1)]">
+          <div className={`relative rounded-3xl overflow-hidden ${
+            isLight
+              ? 'shadow-[0_25px_60px_-10px_rgba(15,23,42,0.14),0_0_0_1px_rgba(203,213,225,0.8)] border border-slate-200/90 bg-white'
+              : 'shadow-[0_40px_80px_rgba(0,0,0,0.6),0_0_0_1px_rgba(220,228,234,0.1)]'
+          }`}>
             <img src={IMGS.doctorHero} alt="Dr. Sree Ranga P.C., Interventional Cardiologist"
               className="w-full h-[360px] sm:h-[480px] lg:h-[580px] object-cover object-top" />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#041220] via-transparent to-transparent" />
+            <div className={`absolute inset-0 bg-gradient-to-t ${
+              isLight ? 'from-slate-900/35 via-transparent to-transparent' : 'from-[#041220] via-transparent to-transparent'
+            }`} />
           </div>
 
           {/* Experience floating card */}
-          <div className="float-card animate-float absolute bottom-3 left-3 sm:-bottom-4 sm:-left-4 lg:-left-8 flex items-center gap-3 px-4 py-3 sm:px-5 sm:py-4 rounded-2xl glass-medical-card z-20">
-            <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl flex items-center justify-center flex-shrink-0 animate-heartbeat bg-[#E92932]/20">
-              <HeartIcon size={18} color="var(--red-accent)" filled />
+          <div className={`float-card animate-float absolute bottom-3 left-3 sm:-bottom-4 sm:-left-4 lg:-left-8 flex items-center gap-3 px-4 py-3 sm:px-5 sm:py-4 rounded-2xl z-20 ${
+            isLight
+              ? 'bg-white/95 backdrop-blur-2xl border border-slate-200/90 shadow-[0_12px_36px_rgba(15,23,42,0.12)] text-slate-900'
+              : 'glass-medical-card text-white'
+          }`}>
+            <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl flex items-center justify-center flex-shrink-0 animate-heartbeat bg-[#E92932]/15">
+              <HeartIcon size={18} color="#E92932" filled />
             </div>
             <div>
-              <div className="text-lg sm:text-xl font-bold text-white">18+</div>
-              <div className="text-[11px] sm:text-xs text-slate-300">Years Experience</div>
+              <div className={`text-lg sm:text-xl font-bold ${isLight ? 'text-slate-900' : 'text-white'}`}>18+</div>
+              <div className={`text-[11px] sm:text-xs ${isLight ? 'text-slate-600 font-medium' : 'text-slate-300'}`}>Years Experience</div>
             </div>
           </div>
 
@@ -186,20 +224,26 @@ function Hero() {
             target="_blank"
             rel="noopener noreferrer"
             aria-label="View Google Reviews"
-            className="float-card animate-float absolute top-3 right-3 sm:top-6 sm:-right-4 lg:-right-8 flex items-center gap-3 px-3.5 py-2.5 sm:px-4 sm:py-3 rounded-2xl glass-medical-card z-20 hover:scale-105 transition-all group cursor-pointer"
+            className={`float-card animate-float absolute top-3 right-3 sm:top-6 sm:-right-4 lg:-right-8 flex items-center gap-3 px-3.5 py-2.5 sm:px-4 sm:py-3 rounded-2xl z-20 hover:scale-105 transition-all group cursor-pointer ${
+              isLight
+                ? 'bg-white/95 backdrop-blur-2xl border border-slate-200/90 shadow-[0_12px_36px_rgba(15,23,42,0.12)] text-slate-900'
+                : 'glass-medical-card text-white'
+            }`}
             style={{ animationDelay: "1s" }}
           >
-            <div className="grid h-8 w-8 sm:h-9 sm:w-9 place-items-center rounded-xl bg-white shadow-sm shrink-0">
+            <div className="grid h-8 w-8 sm:h-9 sm:w-9 place-items-center rounded-xl bg-slate-100 shadow-sm shrink-0 border border-slate-200/80">
               <GoogleIcon size={18} />
             </div>
             <div>
               <div className="flex items-center gap-1.5">
-                <span className="text-sm sm:text-base font-bold text-white">4.9</span>
+                <span className={`text-sm sm:text-base font-bold ${isLight ? 'text-slate-900' : 'text-white'}`}>4.9</span>
                 <div className="flex gap-0.5">
                   {[...Array(5)].map((_, i) => <StarIcon key={i} size={10} filled={i < 5} />)}
                 </div>
               </div>
-              <div className="text-[10px] sm:text-[11px] font-medium text-slate-300 group-hover:text-white transition-colors">
+              <div className={`text-[10px] sm:text-[11px] font-medium transition-colors ${
+                isLight ? 'text-slate-600 group-hover:text-[#E92932]' : 'text-slate-300 group-hover:text-white'
+              }`}>
                 Google Reviews (127+)
               </div>
             </div>
@@ -217,10 +261,14 @@ function Hero() {
           aria-label="Scroll down to next section"
           className="group flex flex-col items-center gap-2.5 cursor-pointer transition-all duration-300 hover:scale-105"
         >
-          <span className="text-[11px] font-semibold tracking-[0.25em] uppercase text-slate-300 group-hover:text-white transition-colors drop-shadow-sm">
+          <span className={`text-[11px] font-semibold tracking-[0.25em] uppercase transition-colors drop-shadow-sm ${
+            isLight ? 'text-slate-600 group-hover:text-slate-900' : 'text-slate-300 group-hover:text-white'
+          }`}>
             Scroll Down
           </span>
-          <div className="relative grid h-10 w-6 place-items-center rounded-full border-2 border-white/20 bg-white/5 backdrop-blur-md shadow-lg group-hover:border-[#E92932] group-hover:bg-[#E92932]/10 transition-all">
+          <div className={`relative grid h-10 w-6 place-items-center rounded-full border-2 backdrop-blur-md shadow-lg group-hover:border-[#E92932] group-hover:bg-[#E92932]/10 transition-all ${
+            isLight ? 'border-slate-300 bg-white' : 'border-white/20 bg-white/5'
+          }`}>
             <div className="h-2 w-1 rounded-full bg-[#E92932] animate-scroll-dot shadow-[0_0_8px_rgba(233,41,50,0.8)]" />
           </div>
         </button>
@@ -235,34 +283,51 @@ function Hero() {
 function About() {
   const leftRef = useReveal();
   const rightRef = useReveal();
+  const { theme } = useAppState();
+  const isLight = theme === 'light';
+
   return (
-    <section id="about" className="py-10 sm:py-14 lg:py-16 px-4 sm:px-6 lg:px-8 overflow-hidden relative z-10 bg-[#040E1B]/90 backdrop-blur-xl border-b border-white/10">
+    <section id="about" className={`py-10 sm:py-14 lg:py-16 px-4 sm:px-6 lg:px-8 overflow-hidden relative z-10 transition-colors duration-300 ${
+      isLight ? 'bg-white border-b border-slate-200/80 shadow-[0_10px_30px_rgba(15,23,42,0.02)]' : 'bg-[#040E1B]/90 backdrop-blur-xl border-b border-white/10'
+    }`}>
       <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
         {/* Image */}
         <div ref={leftRef} className="reveal relative group">
           {/* Top-Left Hollow Decorative Frame */}
-          <div className="absolute -top-3 -left-3 sm:-top-6 sm:-left-6 w-24 h-24 sm:w-36 sm:h-36 rounded-[28px] border-2 border-[#E92932]/35 bg-[#E92932]/5 transition-transform duration-500 group-hover:-translate-x-2 group-hover:-translate-y-2 pointer-events-none z-0" />
+          <div className={`absolute -top-3 -left-3 sm:-top-6 sm:-left-6 w-24 h-24 sm:w-36 sm:h-36 rounded-[28px] border-2 transition-transform duration-500 group-hover:-translate-x-2 group-hover:-translate-y-2 pointer-events-none z-0 ${
+            isLight ? 'border-[#E92932]/30 bg-red-50/50' : 'border-[#E92932]/35 bg-[#E92932]/5'
+          }`} />
 
           {/* Bottom-Right Filled Decorative Frame */}
           <div className="absolute -bottom-3 -right-3 sm:-bottom-6 sm:-right-6 w-36 h-36 sm:w-52 sm:h-52 rounded-[36px] bg-gradient-to-tr from-[#E92932]/25 via-[#FF4148]/15 to-[#E92932]/05 shadow-xl blur-[1px] transition-transform duration-500 group-hover:translate-x-2 group-hover:translate-y-2 pointer-events-none z-0" />
 
           {/* Main Image Frame */}
-          <div className="relative rounded-[28px] sm:rounded-[32px] overflow-hidden border border-white/20 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.5)] z-10 transition-transform duration-500">
+          <div className={`relative rounded-[28px] sm:rounded-[32px] overflow-hidden border z-10 transition-transform duration-500 ${
+            isLight ? 'border-slate-200/90 shadow-[0_20px_50px_rgba(15,23,42,0.1)] bg-white' : 'border-white/20 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.5)]'
+          }`}>
             <img src={IMGS.doctorAbout} alt="Dr. Sree Ranga P.C. in consultation"
               className="w-full h-[340px] sm:h-[450px] lg:h-[540px] object-cover object-top transition-transform duration-700 group-hover:scale-105" />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#041220] via-[#041220]/20 to-transparent" />
+            <div className={`absolute inset-0 bg-gradient-to-t ${
+              isLight ? 'from-slate-900/35 via-transparent to-transparent' : 'from-[#041220] via-[#041220]/20 to-transparent'
+            }`} />
 
             {/* Floating Glass Doctor Info Card */}
-            <div className="absolute bottom-3 left-3 right-3 sm:bottom-6 sm:left-6 sm:right-6 p-4 sm:p-5 rounded-2xl glass-medical-card text-white shadow-2xl">
+            <div className={`absolute bottom-3 left-3 right-3 sm:bottom-6 sm:left-6 sm:right-6 p-4 sm:p-5 rounded-2xl shadow-2xl ${
+              isLight ? 'bg-white/95 backdrop-blur-2xl border border-slate-200/90 text-slate-900 shadow-[0_10px_35px_rgba(15,23,42,0.12)]' : 'glass-medical-card text-white'
+            }`}>
               <div className="flex items-center justify-between gap-3">
                 <div>
-                  <div className="font-bold text-sm sm:text-base text-white tracking-tight flex items-center gap-2">
+                  <div className={`font-bold text-sm sm:text-base tracking-tight flex items-center gap-2 ${
+                    isLight ? 'text-slate-900' : 'text-white'
+                  }`}>
                     <span>Dr. Sree Ranga P.C.</span>
-                    <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[9.5px] sm:text-[10px] font-semibold bg-[#E92932]/25 text-[#FF4148] border border-[#E92932]/40">
+                    <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[9.5px] sm:text-[10px] font-semibold bg-[#E92932]/15 text-[#E92932] border border-[#E92932]/30">
                       Cardiologist
                     </span>
                   </div>
-                  <div className="text-[11px] sm:text-xs text-slate-300 font-medium mt-0.5">
+                  <div className={`text-[11px] sm:text-xs font-medium mt-0.5 ${
+                    isLight ? 'text-slate-600' : 'text-slate-300'
+                  }`}>
                     MBBS, MD, DM (Interventional Cardiology)
                   </div>
                 </div>
@@ -277,17 +342,19 @@ function About() {
         {/* Content */}
         <div ref={rightRef} className="reveal space-y-4 sm:space-y-5">
           <div className="eyebrow">Meet Your Cardiologist</div>
-          <h2 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold leading-tight text-white">
+          <h2 className={`text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold leading-tight ${
+            isLight ? 'text-slate-900' : 'text-white'
+          }`}>
             Experience that listens<br />
-            <em className="not-italic" style={{ color: "var(--red-accent)" }}>before it treats.</em>
+            <em className="not-italic text-[#E92932]">before it treats.</em>
           </h2>
-          <p className="text-base leading-relaxed text-slate-300">
+          <p className={`text-base leading-relaxed ${isLight ? 'text-slate-600 font-medium' : 'text-slate-300'}`}>
             Dr. Sree Ranga P.C. is a leading interventional cardiologist with over 18 years of dedicated
             practice at Shri Kanhaiya Diagnostics, Nandini Layout, Bangalore. Trained in advanced cardiac
             interventions, he brings a rare combination of technical precision and genuine patient empathy
             to every consultation.
           </p>
-          <p className="text-base leading-relaxed text-slate-300">
+          <p className={`text-base leading-relaxed ${isLight ? 'text-slate-600 font-medium' : 'text-slate-300'}`}>
             His practice philosophy centers on thorough evaluation — listening to the patient before reaching
             for the diagnostic toolkit. From complex coronary interventions to preventive cardiology,
             Dr. Sree Ranga approaches each case as a unique clinical story.
@@ -301,18 +368,20 @@ function About() {
               { val: "4.9/5", label: "Rating" },
               { val: "127+", label: "Reviews" },
             ].map(s => (
-              <div key={s.label} className="flex items-center gap-3 p-3.5 rounded-xl glass-medical-card">
-                <div className="w-1.5 h-7 rounded-full" style={{ background: "var(--red)" }} />
+              <div key={s.label} className={`flex items-center gap-3 p-3.5 rounded-xl ${
+                isLight ? 'bg-white border border-slate-200/80 shadow-sm text-slate-900' : 'glass-medical-card text-white'
+              }`}>
+                <div className="w-1.5 h-7 rounded-full bg-[#E92932]" />
                 <div>
-                  <div className="text-lg font-bold text-white">{s.val}</div>
-                  <div className="text-xs text-slate-300">{s.label}</div>
+                  <div className={`text-lg font-bold ${isLight ? 'text-slate-900' : 'text-white'}`}>{s.val}</div>
+                  <div className={`text-xs ${isLight ? 'text-slate-600 font-medium' : 'text-slate-300'}`}>{s.label}</div>
                 </div>
               </div>
             ))}
           </div>
 
-          <Link to="/book-appointment" className="inline-flex items-center gap-2 font-semibold transition-all duration-200 hover:gap-3 text-[#FF4148]">
-            Learn More About Dr. Sree Ranga <ArrowRight size={16} />
+          <Link to="/book-appointment" className="inline-flex items-center gap-2 font-semibold transition-all duration-200 hover:gap-3 text-[#E92932]">
+            Learn More About Dr. Sree Ranga <ArrowRight size={16} color="#E92932" />
           </Link>
         </div>
       </div>
@@ -323,6 +392,9 @@ function About() {
 // ─── Expertise ────────────────────────────────────────────────────────────────
 function Expertise() {
   const headRef = useReveal();
+  const { theme } = useAppState();
+  const isLight = theme === 'light';
+
   const cards = [
     { title: "Preventive Cardiology", desc: "Comprehensive screening and risk stratification to stop heart disease before it starts.", img: IMGS.ecgPaper },
     { title: "Interventional Cardiology", desc: "Minimally invasive procedures including angioplasty, stenting, and complex PCI.", img: IMGS.heartbeat },
@@ -331,19 +403,21 @@ function Expertise() {
   ];
 
   return (
-    <section id="expertise" className="py-14 lg:py-16 px-6 lg:px-8 relative z-10 bg-[#030C16]">
+    <section id="expertise" className={`py-14 lg:py-16 px-6 lg:px-8 relative z-10 transition-colors duration-300 ${
+      isLight ? 'bg-[#F4F7FA]' : 'bg-[#030C16]'
+    }`}>
       <div className="max-w-7xl mx-auto">
         <div ref={headRef} className="reveal text-center mb-10">
           <div className="eyebrow mb-3">Clinical Expertise</div>
-          <h2 className="text-3xl lg:text-4xl xl:text-5xl font-bold text-white">
+          <h2 className={`text-3xl lg:text-4xl xl:text-5xl font-bold ${isLight ? 'text-slate-900' : 'text-white'}`}>
             Advanced cardiac care,<br />
-            <em className="not-italic" style={{ color: "var(--red-accent)" }}>built around you.</em>
+            <em className="not-italic text-[#E92932]">built around you.</em>
           </h2>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
           {cards.map((card, i) => (
-            <ExpertiseCard key={card.title} card={card} delay={i} />
+            <ExpertiseCard key={card.title} card={card} delay={i} isLight={isLight} />
           ))}
         </div>
       </div>
@@ -351,29 +425,35 @@ function Expertise() {
   );
 }
 
-function ExpertiseCard({ card, delay }) {
+function ExpertiseCard({ card, delay, isLight }) {
   const ref = useReveal();
   const [hovered, setHovered] = useState(false);
   return (
-    <div ref={ref} className={`reveal reveal-delay-${delay + 1} group relative rounded-2xl overflow-hidden cursor-pointer transition-all duration-400 glass-medical-card`}
+    <div ref={ref} className={`reveal reveal-delay-${delay + 1} group relative rounded-2xl overflow-hidden cursor-pointer transition-all duration-400 ${
+      isLight
+        ? 'bg-white border border-slate-200/90 shadow-[0_4px_20px_rgba(15,23,42,0.04)] text-slate-900 hover:shadow-[0_12px_35px_rgba(15,23,42,0.08)]'
+        : 'glass-medical-card text-white'
+    }`}
       style={{ transform: hovered ? "translateY(-6px)" : "translateY(0)" }}
       onMouseEnter={() => setHovered(true)} onMouseLeave={() => setHovered(false)}>
       <div className="relative h-56 overflow-hidden">
         <img src={card.img} alt={card.title}
           className="w-full h-full object-cover transition-transform duration-700"
           style={{ transform: hovered ? "scale(1.07)" : "scale(1)" }} />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#041220] via-[#041220]/50 to-transparent" />
+        <div className={`absolute inset-0 bg-gradient-to-t ${
+          isLight ? 'from-white via-white/40 to-transparent' : 'from-[#041220] via-[#041220]/50 to-transparent'
+        }`} />
       </div>
       <div className="absolute bottom-0 left-0 right-0 p-5">
         {/* Red accent line */}
-        <div className="h-0.5 mb-3 rounded-full transition-all duration-400" style={{ background: "var(--red)", width: hovered ? "48px" : "32px" }} />
+        <div className="h-0.5 mb-3 rounded-full transition-all duration-400 bg-[#E92932]" style={{ width: hovered ? "48px" : "32px" }} />
         <div className="flex items-start justify-between gap-4">
           <div>
-            <h3 className="text-lg font-bold mb-1.5 text-white">{card.title}</h3>
-            <p className="text-sm leading-relaxed text-slate-300">{card.desc}</p>
+            <h3 className={`text-lg font-bold mb-1.5 ${isLight ? 'text-slate-900' : 'text-white'}`}>{card.title}</h3>
+            <p className={`text-sm leading-relaxed ${isLight ? 'text-slate-600 font-medium' : 'text-slate-300'}`}>{card.desc}</p>
           </div>
           <div className="flex-shrink-0 transition-all duration-300" style={{ transform: hovered ? "translateX(4px)" : "translateX(0)" }}>
-            <ArrowRight size={20} color="var(--red-accent)" />
+            <ArrowRight size={20} color="#E92932" />
           </div>
         </div>
       </div>
@@ -384,9 +464,12 @@ function ExpertiseCard({ card, delay }) {
 // ─── Services ─────────────────────────────────────────────────────────────────
 function Services() {
   const headRef = useReveal();
+  const { theme } = useAppState();
+  const isLight = theme === 'light';
+
   const services = [
     { icon: <WaveIcon size={20} />, title: "ECG & Cardiac Evaluation", desc: "Comprehensive resting and dynamic electrocardiography." },
-    { icon: <HeartIcon size={20} color="var(--red-accent)" />, title: "Echocardiography", desc: "2D, 3D and Doppler imaging of cardiac structure and function." },
+    { icon: <HeartIcon size={20} color="#E92932" />, title: "Echocardiography", desc: "2D, 3D and Doppler imaging of cardiac structure and function." },
     { icon: <ActivityIcon size={20} />, title: "TMT / Stress Testing", desc: "Exercise tolerance testing for ischemia detection." },
     { icon: <ClockIcon size={20} />, title: "Holter Monitoring", desc: "24–72 hour ambulatory cardiac rhythm recording." },
     { icon: <ScopeIcon size={20} />, title: "Coronary Angiography", desc: "Fluoroscopic imaging of coronary arterial anatomy." },
@@ -396,15 +479,17 @@ function Services() {
   ];
 
   return (
-    <section id="services" className="py-14 lg:py-16 px-6 lg:px-8 relative z-10 bg-[#051322]/90 backdrop-blur-xl border-y border-white/10">
+    <section id="services" className={`py-14 lg:py-16 px-6 lg:px-8 relative z-10 transition-colors duration-300 ${
+      isLight ? 'bg-white/90 backdrop-blur-xl border-y border-slate-200/80' : 'bg-[#051322]/90 backdrop-blur-xl border-y border-white/10'
+    }`}>
       <div className="max-w-7xl mx-auto">
         <div ref={headRef} className="reveal mb-10">
           <div className="eyebrow mb-3">Our Services</div>
           <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-4">
-            <h2 className="text-3xl lg:text-4xl xl:text-5xl font-bold text-white">
+            <h2 className={`text-3xl lg:text-4xl xl:text-5xl font-bold ${isLight ? 'text-slate-900' : 'text-white'}`}>
               Cardiology services<br />that go the distance.
             </h2>
-            <p className="max-w-sm text-base text-slate-300">
+            <p className={`max-w-sm text-base ${isLight ? 'text-slate-600 font-medium' : 'text-slate-300'}`}>
               From your first ECG to a complex coronary intervention — we handle every step with precision.
             </p>
           </div>
@@ -413,7 +498,7 @@ function Services() {
         {/* Asymmetric grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4.5">
           {services.map((s, i) => (
-            <ServiceCard key={s.title} service={s} delay={(i % 3) + 1} large={i === 0 || i === 5} />
+            <ServiceCard key={s.title} service={s} delay={(i % 3) + 1} large={i === 0 || i === 5} isLight={isLight} />
           ))}
         </div>
       </div>
@@ -421,24 +506,34 @@ function Services() {
   );
 }
 
-function ServiceCard({ service, delay, large }) {
+function ServiceCard({ service, delay, large, isLight }) {
   const ref = useReveal();
   return (
-    <div ref={ref} className={`reveal reveal-delay-${delay} group relative flex flex-col gap-3.5 p-5 rounded-2xl glass-medical-card cursor-pointer ${large ? "md:col-span-1" : ""}`}>
+    <div ref={ref} className={`reveal reveal-delay-${delay} group relative flex flex-col gap-3.5 p-5 rounded-2xl cursor-pointer transition-all ${
+      large ? "md:col-span-1" : ""
+    } ${
+      isLight
+        ? 'bg-white border border-slate-200/80 shadow-sm hover:shadow-md hover:border-[#E92932]/40 text-slate-900'
+        : 'glass-medical-card text-white'
+    }`}>
 
       {/* Subtle top indicator line on hover */}
       <div className="h-0.5 w-0 group-hover:w-12 bg-[#E92932] rounded-full transition-all duration-300" />
 
-      <div className="w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-300 group-hover:scale-110 bg-[#E92932]/15">
+      <div className={`w-10 h-10 rounded-xl flex items-center justify-center transition-all duration-300 group-hover:scale-110 ${
+        isLight ? 'bg-red-50 text-[#E92932]' : 'bg-[#E92932]/15'
+      }`}>
         {service.icon}
       </div>
       <div className="flex-1">
-        <div className="font-semibold mb-1 text-white group-hover:text-[#FF4148] transition-colors duration-200">{service.title}</div>
-        <div className="text-sm leading-relaxed text-slate-300">{service.desc}</div>
+        <div className={`font-semibold mb-1 transition-colors duration-200 ${
+          isLight ? 'text-slate-900 group-hover:text-[#E92932]' : 'text-white group-hover:text-[#FF4148]'
+        }`}>{service.title}</div>
+        <div className={`text-sm leading-relaxed ${isLight ? 'text-slate-600' : 'text-slate-300'}`}>{service.desc}</div>
       </div>
-      <Link to="/book-appointment" className="flex items-center gap-1.5 text-sm font-medium transition-all duration-200 text-[#FF4148]">
+      <Link to="/book-appointment" className="flex items-center gap-1.5 text-sm font-medium transition-all duration-200 text-[#E92932]">
         <span>Explore</span>
-        <ArrowRight size={14} className="transition-transform duration-300 group-hover:translate-x-1.5" />
+        <ArrowRight size={14} color="#E92932" className="transition-transform duration-300 group-hover:translate-x-1.5" />
       </Link>
     </div>
   );
@@ -447,6 +542,9 @@ function ServiceCard({ service, delay, large }) {
 // ─── Why Choose Us ────────────────────────────────────────────────────────────
 function WhyChooseUs() {
   const headRef = useReveal();
+  const { theme } = useAppState();
+  const isLight = theme === 'light';
+
   const reasons = [
     { num: "01", title: "Experienced Specialist", desc: "18+ years of focused interventional cardiology practice with complex case expertise." },
     { num: "02", title: "Patient-Centered Care", desc: "Each treatment plan is built around the individual — not a protocol sheet." },
@@ -455,15 +553,17 @@ function WhyChooseUs() {
   ];
 
   return (
-    <section className="py-14 lg:py-16 px-6 lg:px-8 overflow-hidden relative z-10 bg-[#040E1B]/95 backdrop-blur-xl border-b border-white/10">
+    <section className={`py-14 lg:py-16 px-6 lg:px-8 overflow-hidden relative z-10 transition-colors duration-300 ${
+      isLight ? 'bg-[#F1F5F9] border-b border-slate-200/80' : 'bg-[#040E1B]/95 backdrop-blur-xl border-b border-white/10'
+    }`}>
       <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
         <div ref={headRef} className="reveal">
           <div className="eyebrow mb-3">Why Choose Us</div>
-          <h2 className="text-3xl lg:text-4xl xl:text-5xl font-bold leading-tight text-white">
+          <h2 className={`text-3xl lg:text-4xl xl:text-5xl font-bold leading-tight ${isLight ? 'text-slate-900' : 'text-white'}`}>
             Precision in diagnosis.<br />
-            <em className="not-italic" style={{ color: "var(--red-accent)" }}>Confidence in treatment.</em>
+            <em className="not-italic text-[#E92932]">Confidence in treatment.</em>
           </h2>
-          <p className="mt-4 text-base leading-relaxed text-slate-300">
+          <p className={`mt-4 text-base leading-relaxed ${isLight ? 'text-slate-600 font-medium' : 'text-slate-300'}`}>
             At Shri Kanhaiya Diagnostics, we combine clinical excellence with genuine compassion —
             so every patient walks out with answers, not just a prescription.
           </p>
@@ -471,7 +571,7 @@ function WhyChooseUs() {
 
         <div className="space-y-3.5">
           {reasons.map((r, i) => (
-            <ReasonItem key={r.num} reason={r} delay={i + 1} />
+            <ReasonItem key={r.num} reason={r} delay={i + 1} isLight={isLight} />
           ))}
         </div>
       </div>
@@ -479,16 +579,18 @@ function WhyChooseUs() {
   );
 }
 
-function ReasonItem({ reason, delay }) {
+function ReasonItem({ reason, delay, isLight }) {
   const ref = useReveal();
   return (
-    <div ref={ref} className={`reveal reveal-delay-${delay} flex gap-4.5 p-4.5 rounded-2xl glass-medical-card`}>
+    <div ref={ref} className={`reveal reveal-delay-${delay} flex gap-4.5 p-4.5 rounded-2xl ${
+      isLight ? 'bg-white border border-slate-200/80 shadow-sm text-slate-900' : 'glass-medical-card text-white'
+    }`}>
       <div className="flex-shrink-0 text-3xl font-bold leading-none text-[#E92932]">
         {reason.num}
       </div>
       <div>
-        <div className="font-semibold mb-1 text-white">{reason.title}</div>
-        <div className="text-sm leading-relaxed text-slate-300">{reason.desc}</div>
+        <div className={`font-semibold mb-1 ${isLight ? 'text-slate-900' : 'text-white'}`}>{reason.title}</div>
+        <div className={`text-sm leading-relaxed ${isLight ? 'text-slate-600' : 'text-slate-300'}`}>{reason.desc}</div>
       </div>
     </div>
   );
@@ -497,14 +599,19 @@ function ReasonItem({ reason, delay }) {
 // ─── Medical Technology ───────────────────────────────────────────────────────
 function MedicalTech() {
   const headRef = useReveal();
+  const { theme } = useAppState();
+  const isLight = theme === 'light';
+
   return (
-    <section className="py-14 lg:py-16 px-6 lg:px-8 relative overflow-hidden z-10 bg-[#030A14]">
+    <section className={`py-14 lg:py-16 px-6 lg:px-8 relative overflow-hidden z-10 transition-colors duration-300 ${
+      isLight ? 'bg-[#F8FAFC]' : 'bg-[#030A14]'
+    }`}>
       {/* Scrolling ECG background */}
-      <div className="absolute bottom-0 left-0 right-0 h-20 overflow-hidden opacity-10">
+      <div className={`absolute bottom-0 left-0 right-0 h-20 overflow-hidden ${isLight ? 'opacity-15' : 'opacity-10'}`}>
         <div className="ecg-scroll flex">
           {[...Array(4)].map((_, i) => (
             <svg key={i} width="530" height="100" viewBox="0 0 530 100" fill="none" className="flex-shrink-0">
-              <path d={ECG_PATH} stroke="var(--red)" strokeWidth="1.5" fill="none" />
+              <path d={ECG_PATH} stroke="#E92932" strokeWidth="1.5" fill="none" />
             </svg>
           ))}
         </div>
@@ -513,9 +620,9 @@ function MedicalTech() {
       <div className="max-w-7xl mx-auto">
         <div ref={headRef} className="reveal text-center mb-10">
           <div className="eyebrow mb-3">Technology</div>
-          <h2 className="text-3xl lg:text-4xl xl:text-5xl font-bold text-white">
+          <h2 className={`text-3xl lg:text-4xl xl:text-5xl font-bold ${isLight ? 'text-slate-900' : 'text-white'}`}>
             Diagnosis-grade technology.<br />
-            <em className="not-italic" style={{ color: "var(--red-accent)" }}>Right here in Bangalore.</em>
+            <em className="not-italic text-[#E92932]">Right here in Bangalore.</em>
           </h2>
         </div>
 
@@ -528,7 +635,7 @@ function MedicalTech() {
             { img: IMGS.hospitalRoom, label: "Clinical Workspace" },
             { img: IMGS.ecgPaper, label: "ECG Paper Interpretation" },
           ].map((item, i) => (
-            <TechCard key={item.label} item={item} delay={(i % 3) + 1} />
+            <TechCard key={item.label} item={item} delay={(i % 3) + 1} isLight={isLight} />
           ))}
         </div>
       </div>
@@ -536,15 +643,17 @@ function MedicalTech() {
   );
 }
 
-function TechCard({ item, delay }) {
+function TechCard({ item, delay, isLight }) {
   const ref = useReveal();
   const [hov, setHov] = useState(false);
   return (
-    <div ref={ref} className={`reveal reveal-delay-${delay} relative rounded-2xl overflow-hidden cursor-pointer h-44 border border-white/10`}
+    <div ref={ref} className={`reveal reveal-delay-${delay} relative rounded-2xl overflow-hidden cursor-pointer h-44 border ${
+      isLight ? 'border-slate-200/90 shadow-sm' : 'border-white/10'
+    }`}
       onMouseEnter={() => setHov(true)} onMouseLeave={() => setHov(false)}>
       <img src={item.img} alt={item.label} className="w-full h-full object-cover transition-transform duration-500"
         style={{ transform: hov ? "scale(1.06)" : "scale(1)" }} />
-      <div className="absolute inset-0 transition-all duration-300" style={{ background: hov ? "rgba(6,26,43,0.6)" : "rgba(6,26,43,0.3)" }} />
+      <div className="absolute inset-0 transition-all duration-300" style={{ background: hov ? "rgba(6,26,43,0.65)" : "rgba(6,26,43,0.35)" }} />
       <div className="absolute bottom-0 left-0 right-0 p-4">
         <div className="text-sm font-medium text-white">{item.label}</div>
       </div>
@@ -555,6 +664,9 @@ function TechCard({ item, delay }) {
 // ─── Patient Journey ──────────────────────────────────────────────────────────
 function PatientJourney() {
   const headRef = useReveal();
+  const { theme } = useAppState();
+  const isLight = theme === 'light';
+
   const steps = [
     { num: "01", title: "Consultation", desc: "A thorough discussion of your symptoms, history, and concerns." },
     { num: "02", title: "Diagnosis", desc: "Targeted investigations — ECG, echo, angiography — to pinpoint the issue." },
@@ -563,24 +675,26 @@ function PatientJourney() {
   ];
 
   return (
-    <section id="patient-care" className="py-14 lg:py-16 px-6 lg:px-8 relative z-10 bg-[#051322]/90 backdrop-blur-xl border-y border-white/10">
+    <section id="patient-care" className={`py-14 lg:py-16 px-6 lg:px-8 relative z-10 transition-colors duration-300 ${
+      isLight ? 'bg-white/90 backdrop-blur-xl border-y border-slate-200/80' : 'bg-[#051322]/90 backdrop-blur-xl border-y border-white/10'
+    }`}>
       <div className="max-w-7xl mx-auto">
         <div ref={headRef} className="reveal text-center mb-10">
           <div className="eyebrow mb-3">Patient Journey</div>
-          <h2 className="text-3xl lg:text-4xl xl:text-5xl font-bold text-white">
+          <h2 className={`text-3xl lg:text-4xl xl:text-5xl font-bold ${isLight ? 'text-slate-900' : 'text-white'}`}>
             From first visit to<br />
-            <em className="not-italic" style={{ color: "var(--red-accent)" }}>full recovery.</em>
+            <em className="not-italic text-[#E92932]">full recovery.</em>
           </h2>
         </div>
 
         <div className="relative grid grid-cols-1 md:grid-cols-4 gap-6">
           {/* Connecting line (desktop) */}
-          <div className="hidden md:block absolute top-10 left-0 right-0 h-px bg-white/15" style={{ zIndex: 0 }}>
+          <div className={`hidden md:block absolute top-10 left-0 right-0 h-px ${isLight ? 'bg-slate-200' : 'bg-white/15'}`} style={{ zIndex: 0 }}>
             <div className="h-full w-full rounded-full bg-[#E92932]" />
           </div>
 
           {steps.map((step, i) => (
-            <JourneyStep key={step.num} step={step} delay={i + 1} />
+            <JourneyStep key={step.num} step={step} delay={i + 1} isLight={isLight} />
           ))}
         </div>
       </div>
@@ -588,16 +702,20 @@ function PatientJourney() {
   );
 }
 
-function JourneyStep({ step, delay }) {
+function JourneyStep({ step, delay, isLight }) {
   const ref = useReveal();
   return (
     <div ref={ref} className={`reveal reveal-delay-${delay} relative flex flex-col items-center text-center gap-3.5`} style={{ zIndex: 1 }}>
-      <div className="w-16 h-16 rounded-full flex items-center justify-center text-xl font-bold border-2 transition-all duration-300 bg-[#061A2B] border-[#E92932] text-[#FF4148] shadow-[0_0_20px_rgba(233,41,50,0.3)]">
+      <div className={`w-16 h-16 rounded-full flex items-center justify-center text-xl font-bold border-2 transition-all duration-300 ${
+        isLight
+          ? 'bg-white border-[#E92932] text-[#E92932] shadow-md'
+          : 'bg-[#061A2B] border-[#E92932] text-[#FF4148] shadow-[0_0_20px_rgba(233,41,50,0.3)]'
+      }`}>
         {step.num}
       </div>
       <div>
-        <div className="font-bold text-base mb-1.5 text-white">{step.title}</div>
-        <div className="text-sm leading-relaxed text-slate-300">{step.desc}</div>
+        <div className={`font-bold text-base mb-1.5 ${isLight ? 'text-slate-900' : 'text-white'}`}>{step.title}</div>
+        <div className={`text-sm leading-relaxed ${isLight ? 'text-slate-600' : 'text-slate-300'}`}>{step.desc}</div>
       </div>
     </div>
   );
@@ -607,6 +725,8 @@ function JourneyStep({ step, delay }) {
 function Testimonials() {
   const headRef = useReveal();
   const [idx, setIdx] = useState(0);
+  const { theme } = useAppState();
+  const isLight = theme === 'light';
 
   const testimonials = [
     { initials: "RP", name: "Rajesh Pillai", category: "Coronary Angiography", text: "Dr. Sree Ranga explained every step of my angiography procedure clearly. He has this rare ability to make you feel calm even in a stressful situation. Highly recommend." },
@@ -620,15 +740,19 @@ function Testimonials() {
   const next = () => setIdx(i => (i + 1) % testimonials.length);
 
   return (
-    <section className="py-14 lg:py-16 px-6 lg:px-8 overflow-hidden relative z-10 bg-[#040E1B]/95 backdrop-blur-xl border-b border-white/10">
+    <section className={`py-14 lg:py-16 px-6 lg:px-8 overflow-hidden relative z-10 transition-colors duration-300 ${
+      isLight ? 'bg-[#F4F7FA] border-b border-slate-200/80' : 'bg-[#040E1B]/95 backdrop-blur-xl border-b border-white/10'
+    }`}>
       <div className="max-w-5xl mx-auto">
         <div ref={headRef} className="reveal text-center mb-10">
           <div className="eyebrow mb-3">Patient Testimonials</div>
-          <h2 className="text-3xl lg:text-4xl xl:text-5xl font-bold mb-3 text-white">
+          <h2 className={`text-3xl lg:text-4xl xl:text-5xl font-bold mb-3 ${isLight ? 'text-slate-900' : 'text-white'}`}>
             Heard from our patients.
           </h2>
           <div className="flex flex-wrap items-center justify-center gap-3 mt-3">
-            <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full glass-medical-card text-xs font-semibold text-white shadow-sm">
+            <div className={`inline-flex items-center gap-2.5 px-4 py-2 rounded-full text-xs font-semibold shadow-sm ${
+              isLight ? 'bg-white border border-slate-200 text-slate-800' : 'glass-medical-card text-white'
+            }`}>
               <GoogleIcon size={18} />
               <span>4.9 / 5.0 Rating based on 127+ Google Reviews</span>
               <div className="flex gap-0.5 ml-1">
@@ -639,7 +763,7 @@ function Testimonials() {
               href="https://maps.google.com/?q=Shri+Kanhaiya+Diagnostics+Nandini+Layout+Bangalore"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-[#4285F4]/20 hover:bg-[#4285F4]/30 border border-[#4285F4]/40 text-xs font-semibold text-white transition-colors cursor-pointer"
+              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-[#4285F4]/20 hover:bg-[#4285F4]/30 border border-[#4285F4]/40 text-xs font-semibold text-[#4285F4] dark:text-white transition-colors cursor-pointer"
             >
               <GoogleIcon size={14} /> Write a Google Review
             </a>
@@ -647,7 +771,9 @@ function Testimonials() {
         </div>
 
         <div className="relative">
-          <div className="rounded-3xl p-8 lg:p-12 relative overflow-hidden glass-medical-card">
+          <div className={`rounded-3xl p-8 lg:p-12 relative overflow-hidden ${
+            isLight ? 'bg-white/95 border border-slate-200/90 shadow-xl text-slate-900' : 'glass-medical-card text-white'
+          }`}>
             {/* Large quote */}
             <div className="absolute top-6 right-10 text-9xl font-bold leading-none select-none text-[#E92932]/10">"</div>
 
@@ -656,7 +782,7 @@ function Testimonials() {
               {[...Array(5)].map((_, i) => <StarIcon key={i} size={18} filled />)}
             </div>
 
-            <p className="text-lg lg:text-xl leading-relaxed font-medium mb-6 text-white">
+            <p className={`text-lg lg:text-xl leading-relaxed font-medium mb-6 ${isLight ? 'text-slate-800' : 'text-white'}`}>
               "{testimonials[idx].text}"
             </p>
 
@@ -665,8 +791,8 @@ function Testimonials() {
                 {testimonials[idx].initials}
               </div>
               <div>
-                <div className="font-semibold text-white text-base">{testimonials[idx].name}</div>
-                <div className="text-xs text-slate-300">{testimonials[idx].category}</div>
+                <div className={`font-semibold text-base ${isLight ? 'text-slate-900' : 'text-white'}`}>{testimonials[idx].name}</div>
+                <div className={`text-xs ${isLight ? 'text-slate-600' : 'text-slate-300'}`}>{testimonials[idx].category}</div>
               </div>
             </div>
           </div>
@@ -676,12 +802,14 @@ function Testimonials() {
             <div className="flex gap-2">
               {testimonials.map((_, i) => (
                 <button key={i} onClick={() => setIdx(i)} aria-label={`Go to slide ${i + 1}`} className="h-1.5 rounded-full transition-all duration-300 cursor-pointer"
-                  style={{ width: i === idx ? "32px" : "8px", background: i === idx ? "var(--red)" : "rgba(255,255,255,0.2)" }} />
+                  style={{ width: i === idx ? "32px" : "8px", background: i === idx ? "#E92932" : isLight ? "rgba(15,23,42,0.15)" : "rgba(255,255,255,0.2)" }} />
               ))}
             </div>
             <div className="flex gap-3">
-              <button onClick={prev} aria-label="Previous testimonial" className="w-10 h-10 rounded-full flex items-center justify-center border border-white/20 transition-all duration-200 hover:bg-white/10 text-white cursor-pointer">
-                <ArrowLeft size={16} color="white" />
+              <button onClick={prev} aria-label="Previous testimonial" className={`w-10 h-10 rounded-full flex items-center justify-center border transition-all duration-200 cursor-pointer ${
+                isLight ? 'border-slate-300 bg-white text-slate-700 hover:bg-slate-100' : 'border-white/20 hover:bg-white/10 text-white'
+              }`}>
+                <ArrowLeft size={16} color={isLight ? "#0F172A" : "white"} />
               </button>
               <button onClick={next} aria-label="Next testimonial" className="w-10 h-10 rounded-full flex items-center justify-center transition-all duration-200 cursor-pointer bg-[#E92932] text-white">
                 <ArrowRight size={16} color="white" />
@@ -700,6 +828,8 @@ function Metrics() {
   const { count: patients, ref: r2 } = useCounter(12000, 2000);
   const { count: rating, ref: r3 } = useCounter(49, 1500);
   const { count: reviews, ref: r4 } = useCounter(127, 1600);
+  const { theme } = useAppState();
+  const isLight = theme === 'light';
 
   const metrics = [
     { ref: r1, value: years + "+", label: "Years of Experience", sub: "Interventional Cardiology" },
@@ -709,14 +839,16 @@ function Metrics() {
   ];
 
   return (
-    <section className="py-12 lg:py-14 px-6 lg:px-8 relative z-10 bg-[#030C16]">
+    <section className={`py-12 lg:py-14 px-6 lg:px-8 relative z-10 transition-colors duration-300 ${
+      isLight ? 'bg-white border-y border-slate-200/80' : 'bg-[#030C16]'
+    }`}>
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-10">
           {metrics.map((m) => (
             <div key={m.label} ref={m.ref} className="text-center">
-              <div className="text-3xl lg:text-4xl xl:text-5xl font-bold mb-1.5" style={{ color: "var(--red-accent)" }}>{m.value}</div>
-              <div className="text-sm font-semibold mb-0.5 text-white">{m.label}</div>
-              <div className="text-xs text-slate-400">{m.sub}</div>
+              <div className="text-3xl lg:text-4xl xl:text-5xl font-bold mb-1.5 text-[#E92932]">{m.value}</div>
+              <div className={`text-sm font-semibold mb-0.5 ${isLight ? 'text-slate-900' : 'text-white'}`}>{m.label}</div>
+              <div className={`text-xs ${isLight ? 'text-slate-500' : 'text-slate-400'}`}>{m.sub}</div>
             </div>
           ))}
         </div>
@@ -729,6 +861,8 @@ function Metrics() {
 function Gallery() {
   const headRef = useReveal();
   const [lightbox, setLightbox] = useState(null);
+  const { theme } = useAppState();
+  const isLight = theme === 'light';
 
   const images = [
     { src: IMGS.doctorHero, label: "Dr. Sree Ranga P.C." },
@@ -743,20 +877,22 @@ function Gallery() {
   ];
 
   return (
-    <section id="gallery" className="py-10 sm:py-14 lg:py-16 px-4 sm:px-6 lg:px-8 relative z-10 bg-[#051322]/90 backdrop-blur-xl border-y border-white/10">
+    <section id="gallery" className={`py-10 sm:py-14 lg:py-16 px-4 sm:px-6 lg:px-8 relative z-10 transition-colors duration-300 ${
+      isLight ? 'bg-[#F8FAFC] border-y border-slate-200/80' : 'bg-[#051322]/90 backdrop-blur-xl border-y border-white/10'
+    }`}>
       <div className="max-w-7xl mx-auto">
         <div ref={headRef} className="reveal mb-8 sm:mb-10">
           <div className="eyebrow mb-2">
             Clinical Gallery
           </div>
-          <h2 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold text-white">
+          <h2 className={`text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold ${isLight ? 'text-slate-900' : 'text-white'}`}>
             Explore our modern facility & diagnostic suites.
           </h2>
         </div>
 
         <div className="columns-1 sm:columns-2 md:columns-3 gap-3 sm:gap-4 space-y-3 sm:space-y-4">
           {images.map((img, i) => (
-            <GalleryItem key={img.label} img={img} delay={(i % 3) + 1} onClick={() => setLightbox(img)} />
+            <GalleryItem key={img.label} img={img} delay={(i % 3) + 1} onClick={() => setLightbox(img)} isLight={isLight} />
           ))}
         </div>
       </div>
@@ -778,11 +914,13 @@ function Gallery() {
   );
 }
 
-function GalleryItem({ img, delay, onClick }) {
+function GalleryItem({ img, delay, onClick, isLight }) {
   const ref = useReveal();
   const [hov, setHov] = useState(false);
   return (
-    <div ref={ref} className={`reveal reveal-delay-${delay} relative rounded-xl overflow-hidden cursor-pointer mb-4 inline-block w-full border border-white/10`}
+    <div ref={ref} className={`reveal reveal-delay-${delay} relative rounded-xl overflow-hidden cursor-pointer mb-4 inline-block w-full border ${
+      isLight ? 'border-slate-200/90 shadow-sm' : 'border-white/10'
+    }`}
       onMouseEnter={() => setHov(true)} onMouseLeave={() => setHov(false)} onClick={onClick}>
       <img src={img.src} alt={img.label} className="w-full object-cover transition-transform duration-500"
         style={{ transform: hov ? "scale(1.05)" : "scale(1)" }} />
@@ -806,25 +944,31 @@ function VideoSection() {
   const ref = useReveal();
   const [hov, setHov] = useState(false);
   const [videoModal, setVideoModal] = useState(false);
+  const { theme } = useAppState();
+  const isLight = theme === 'light';
 
   return (
-    <section className="py-14 lg:py-16 px-6 lg:px-8 relative z-10 bg-[#030A14]">
+    <section className={`py-14 lg:py-16 px-6 lg:px-8 relative z-10 transition-colors duration-300 ${
+      isLight ? 'bg-[#F1F5F9]' : 'bg-[#030A14]'
+    }`}>
       <div className="max-w-5xl mx-auto">
         <div ref={ref} className="reveal text-center mb-10">
           <div className="eyebrow mb-3">Our Story</div>
-          <h2 className="text-3xl lg:text-4xl xl:text-5xl font-bold text-white">
+          <h2 className={`text-3xl lg:text-4xl xl:text-5xl font-bold ${isLight ? 'text-slate-900' : 'text-white'}`}>
             See how compassionate cardiac<br />
-            <em className="not-italic" style={{ color: "var(--red-accent)" }}>care comes together.</em>
+            <em className="not-italic text-[#E92932]">care comes together.</em>
           </h2>
         </div>
 
-        <div className="relative rounded-3xl overflow-hidden cursor-pointer border border-white/15 shadow-2xl"
+        <div className={`relative rounded-3xl overflow-hidden cursor-pointer border shadow-2xl ${
+          isLight ? 'border-slate-200/90' : 'border-white/15'
+        }`}
           onClick={() => setVideoModal(true)}
           onMouseEnter={() => setHov(true)} onMouseLeave={() => setHov(false)}>
           <img src={IMGS.ecgMonitor} alt="Cardiac care video" className="w-full h-64 lg:h-88 object-cover transition-transform duration-700"
             style={{ transform: hov ? "scale(1.03)" : "scale(1)" }} />
           <div className="absolute inset-0 flex items-center justify-center transition-all duration-300"
-            style={{ background: hov ? "rgba(6,26,43,0.65)" : "rgba(6,26,43,0.5)" }}>
+            style={{ background: hov ? "rgba(6,26,43,0.65)" : "rgba(6,26,43,0.45)" }}>
             <div className="w-18 h-18 rounded-full flex items-center justify-center transition-all duration-300"
               style={{ background: "rgba(233,41,50,0.9)", transform: hov ? "scale(1.12)" : "scale(1)", boxShadow: hov ? "0 0 40px rgba(233,41,50,0.5)" : "0 0 20px rgba(233,41,50,0.3)" }}>
               <svg width="24" height="24" fill="white" viewBox="0 0 24 24" style={{ marginLeft: "3px" }}>
@@ -836,8 +980,8 @@ function VideoSection() {
       </div>
 
       {videoModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-6 bg-[#061A2B]/90 backdrop-blur-md" onClick={() => setVideoModal(false)}>
-          <div className="relative w-full max-w-3xl rounded-2xl overflow-hidden border border-white/20 bg-black aspect-video shadow-2xl p-8 flex flex-col items-center justify-center text-center" onClick={e => e.stopPropagation()}>
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-6 bg-black/80 backdrop-blur-md" onClick={() => setVideoModal(false)}>
+          <div className="relative w-full max-w-3xl rounded-2xl overflow-hidden border border-white/20 bg-slate-950 aspect-video shadow-2xl p-8 flex flex-col items-center justify-center text-center" onClick={e => e.stopPropagation()}>
             <button className="absolute top-4 right-4 text-white opacity-80 hover:opacity-100 cursor-pointer" onClick={() => setVideoModal(false)}>
               <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12" /></svg>
             </button>
@@ -856,43 +1000,51 @@ function VideoSection() {
 // ─── Appointment ──────────────────────────────────────────────────────────────
 function Appointment() {
   const ref = useReveal();
+  const { theme } = useAppState();
+  const isLight = theme === 'light';
+
   return (
-    <section id="appointment" className="py-14 lg:py-16 px-6 lg:px-8 relative z-10 bg-[#030C16]">
+    <section id="appointment" className={`py-14 lg:py-16 px-6 lg:px-8 relative z-10 transition-colors duration-300 ${
+      isLight ? 'bg-white' : 'bg-[#030C16]'
+    }`}>
       <div className="max-w-4xl mx-auto">
-        <div ref={ref} className="reveal rounded-3xl p-8 lg:p-12 glass-medical-card border border-white/20 shadow-2xl">
+        <div ref={ref} className={`reveal rounded-3xl p-8 lg:p-12 border shadow-2xl ${
+          isLight ? 'bg-gradient-to-br from-white via-red-50/40 to-white border-slate-200/90 text-slate-900' : 'glass-medical-card border-white/20 text-white'
+        }`}>
           <div className="text-center mb-8">
             <div className="eyebrow mb-3">Book a Consultation</div>
-            <h2 className="text-2xl lg:text-3xl xl:text-4xl font-bold mb-3 text-white">
+            <h2 className={`text-2xl lg:text-3xl xl:text-4xl font-bold mb-3 ${isLight ? 'text-slate-900' : 'text-white'}`}>
               Your heart deserves attention<br />
-              <em className="not-italic" style={{ color: "var(--red-accent)" }}>before it demands it.</em>
+              <em className="not-italic text-[#E92932]">before it demands it.</em>
             </h2>
-            <p className="text-base text-slate-300">
+            <p className={`text-base ${isLight ? 'text-slate-600 font-medium' : 'text-slate-300'}`}>
               Book a consultation with Dr. Sree Ranga P.C. — available Monday through Saturday.
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mb-8">
             {[
-              { icon: <PhoneIcon size={18} color="var(--red-accent)" />, label: "Phone", val: "+91 8023456789" },
-              { icon: <MapPinIcon size={18} color="var(--red-accent)" />, label: "Location", val: "Nandini Layout, Bangalore" },
-              { icon: <ClockIcon size={18} color="var(--red-accent)" />, label: "Timings", val: "Mon–Sat: 9am – 7pm" },
+              { icon: <PhoneIcon size={18} color="#E92932" />, label: "Phone", val: "+91 8023456789" },
+              { icon: <MapPinIcon size={18} color="#E92932" />, label: "Location", val: "Nandini Layout, Bangalore" },
+              { icon: <ClockIcon size={18} color="#E92932" />, label: "Timings", val: "Mon–Sat: 9am – 7pm" },
             ].map(item => (
-              <div key={item.label} className="flex items-center gap-3 p-3.5 rounded-xl border border-white/10 bg-white/5">
+              <div key={item.label} className={`flex items-center gap-3 p-3.5 rounded-xl border ${
+                isLight ? 'border-slate-200 bg-white shadow-sm' : 'border-white/10 bg-white/5'
+              }`}>
                 <div className="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0 bg-[#E92932]/15">
                   {item.icon}
                 </div>
                 <div>
-                  <div className="text-xs font-medium mb-0.5 text-slate-400">{item.label}</div>
-                  <div className="text-sm font-semibold text-white">{item.val}</div>
+                  <div className={`text-xs font-medium mb-0.5 ${isLight ? 'text-slate-500' : 'text-slate-400'}`}>{item.label}</div>
+                  <div className={`text-sm font-semibold ${isLight ? 'text-slate-900' : 'text-white'}`}>{item.val}</div>
                 </div>
               </div>
             ))}
           </div>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link to="/book-appointment" className="inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-full font-semibold text-white transition-all duration-200 hover:scale-105 btn-shine"
-              style={{ background: "var(--red)", boxShadow: "0 8px 30px rgba(233,41,50,0.4)" }}>
-              Book an Appointment <ArrowRight size={16} />
+            <Link to="/book-appointment" className="inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-full font-semibold text-white transition-all duration-200 hover:scale-105 btn-shine bg-[#E92932] shadow-[0_8px_30px_rgba(233,41,50,0.4)]">
+              Book an Appointment <ArrowRight size={16} color="white" />
             </Link>
             <a href="https://wa.me/919845011122" target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-full font-semibold transition-all duration-200 hover:scale-105 border border-[#25D366]/40 text-[#25D366] bg-[#25D366]/10">
               <WhatsAppIcon size={18} /> WhatsApp Us
@@ -907,19 +1059,26 @@ function Appointment() {
 // ─── Contact ──────────────────────────────────────────────────────────────────
 function Contact() {
   const ref = useReveal();
+  const { theme } = useAppState();
+  const isLight = theme === 'light';
+
   return (
-    <section id="contact" className="py-14 lg:py-16 px-6 lg:px-8 relative z-10 bg-[#040E1B]/90 backdrop-blur-xl border-t border-white/10">
+    <section id="contact" className={`py-14 lg:py-16 px-6 lg:px-8 relative z-10 transition-colors duration-300 ${
+      isLight ? 'bg-[#F8FAFC] border-t border-slate-200' : 'bg-[#040E1B]/90 backdrop-blur-xl border-t border-white/10'
+    }`}>
       <div className="max-w-7xl mx-auto">
         <div ref={ref} className="reveal mb-10">
           <div className="eyebrow mb-3">Find Us</div>
-          <h2 className="text-3xl lg:text-4xl xl:text-5xl font-bold text-white">
+          <h2 className={`text-3xl lg:text-4xl xl:text-5xl font-bold ${isLight ? 'text-slate-900' : 'text-white'}`}>
             Shri Kanhaiya Diagnostics,<br />Nandini Layout.
           </h2>
         </div>
 
         <div className="grid lg:grid-cols-2 gap-8 items-stretch">
           {/* Real Google Maps Location Card */}
-          <div className="rounded-3xl overflow-hidden shadow-2xl border border-white/15 glass-medical-card flex flex-col justify-between h-full min-h-[440px]">
+          <div className={`rounded-3xl overflow-hidden shadow-2xl border flex flex-col justify-between h-full min-h-[440px] ${
+            isLight ? 'border-slate-200/90 bg-white' : 'border-white/15 glass-medical-card'
+          }`}>
             {/* Header Bar */}
             <div className="px-5 py-3.5 bg-slate-950 text-white flex items-center justify-between shrink-0 border-b border-white/10">
               <div className="flex items-center gap-2 text-xs font-semibold tracking-wide">
@@ -933,7 +1092,7 @@ function Contact() {
                 className="inline-flex items-center gap-1.5 text-xs text-[#FF4148] hover:text-white font-semibold transition-colors cursor-pointer"
               >
                 <span>Open Map</span>
-                <ArrowRight size={12} />
+                <ArrowRight size={12} color="#FF4148" />
               </a>
             </div>
 
@@ -953,8 +1112,10 @@ function Contact() {
             </div>
 
             {/* Bottom Directions Strip */}
-            <div className="p-4 bg-[#06192E] border-t border-white/10 flex flex-col sm:flex-row sm:items-center justify-between gap-3 shrink-0">
-              <div className="text-xs text-slate-300 font-medium">
+            <div className={`p-4 border-t flex flex-col sm:flex-row sm:items-center justify-between gap-3 shrink-0 ${
+              isLight ? 'bg-slate-100 border-slate-200 text-slate-800' : 'bg-[#06192E] border-white/10 text-white'
+            }`}>
+              <div className={`text-xs font-medium ${isLight ? 'text-slate-700' : 'text-slate-300'}`}>
                 446, 1st Main Rd, Sreenivas Nagar, Nandini Layout, Bengaluru, Karnataka 560096
               </div>
               <a
@@ -972,63 +1133,71 @@ function Contact() {
           {/* Contact Cards */}
           <div className="flex flex-col justify-between gap-3.5">
             {/* Address */}
-            <div className="flex items-start gap-4 p-4.5 rounded-2xl glass-medical-card">
-              <div className="w-10 h-10 rounded-2xl flex items-center justify-center flex-shrink-0 bg-[#E92932]/15 text-[#FF4148]">
-                <MapPinIcon size={20} color="#FF4148" />
+            <div className={`flex items-start gap-4 p-4.5 rounded-2xl ${
+              isLight ? 'bg-white border border-slate-200/80 shadow-sm text-slate-900' : 'glass-medical-card text-white'
+            }`}>
+              <div className="w-10 h-10 rounded-2xl flex items-center justify-center flex-shrink-0 bg-[#E92932]/15 text-[#E92932]">
+                <MapPinIcon size={20} color="#E92932" />
               </div>
               <div>
-                <div className="text-[11px] font-bold uppercase tracking-wider text-[#FF4148] mb-0.5">
+                <div className="text-[11px] font-bold uppercase tracking-wider text-[#E92932] mb-0.5">
                   ADDRESS
                 </div>
-                <div className="text-sm font-semibold text-white">{CLINIC_INFO.name}</div>
-                <div className="text-xs text-slate-300 leading-relaxed mt-0.5">
+                <div className={`text-sm font-semibold ${isLight ? 'text-slate-900' : 'text-white'}`}>{CLINIC_INFO.name}</div>
+                <div className={`text-xs leading-relaxed mt-0.5 ${isLight ? 'text-slate-600' : 'text-slate-300'}`}>
                   {CLINIC_INFO.address}
                 </div>
               </div>
             </div>
 
             {/* Phone */}
-            <div className="flex items-start gap-4 p-4.5 rounded-2xl glass-medical-card">
-              <div className="w-10 h-10 rounded-2xl flex items-center justify-center flex-shrink-0 bg-[#E92932]/15 text-[#FF4148]">
-                <PhoneIcon size={20} color="#FF4148" />
+            <div className={`flex items-start gap-4 p-4.5 rounded-2xl ${
+              isLight ? 'bg-white border border-slate-200/80 shadow-sm text-slate-900' : 'glass-medical-card text-white'
+            }`}>
+              <div className="w-10 h-10 rounded-2xl flex items-center justify-center flex-shrink-0 bg-[#E92932]/15 text-[#E92932]">
+                <PhoneIcon size={20} color="#E92932" />
               </div>
               <div>
-                <div className="text-[11px] font-bold uppercase tracking-wider text-[#FF4148] mb-0.5">
+                <div className="text-[11px] font-bold uppercase tracking-wider text-[#E92932] mb-0.5">
                   PHONE
                 </div>
-                <div className="flex flex-col text-sm font-semibold text-white space-y-0.5">
-                  <a href={`tel:${CLINIC_INFO.phoneTel}`} className="hover:text-[#FF4148] transition-colors">{CLINIC_INFO.phone}</a>
-                  <a href="tel:+91 9845011122" className="hover:text-[#FF4148] transition-colors">+91 98450 11122</a>
+                <div className={`flex flex-col text-sm font-semibold space-y-0.5 ${isLight ? 'text-slate-900' : 'text-white'}`}>
+                  <a href={`tel:${CLINIC_INFO.phoneTel}`} className="hover:text-[#E92932] transition-colors">{CLINIC_INFO.phone}</a>
+                  <a href="tel:+91 9845011122" className="hover:text-[#E92932] transition-colors">+91 98450 11122</a>
                 </div>
               </div>
             </div>
 
             {/* Email */}
-            <div className="flex items-start gap-4 p-4.5 rounded-2xl glass-medical-card">
-              <div className="w-10 h-10 rounded-2xl flex items-center justify-center flex-shrink-0 bg-[#E92932]/15 text-[#FF4148]">
-                <MailIcon size={20} color="#FF4148" />
+            <div className={`flex items-start gap-4 p-4.5 rounded-2xl ${
+              isLight ? 'bg-white border border-slate-200/80 shadow-sm text-slate-900' : 'glass-medical-card text-white'
+            }`}>
+              <div className="w-10 h-10 rounded-2xl flex items-center justify-center flex-shrink-0 bg-[#E92932]/15 text-[#E92932]">
+                <MailIcon size={20} color="#E92932" />
               </div>
               <div>
-                <div className="text-[11px] font-bold uppercase tracking-wider text-[#FF4148] mb-0.5">
+                <div className="text-[11px] font-bold uppercase tracking-wider text-[#E92932] mb-0.5">
                   EMAIL
                 </div>
-                <div className="flex flex-col text-sm font-semibold text-white space-y-0.5">
-                  <a href={`mailto:${CLINIC_INFO.email}`} className="hover:text-[#FF4148] transition-colors">{CLINIC_INFO.email}</a>
+                <div className={`flex flex-col text-sm font-semibold space-y-0.5 ${isLight ? 'text-slate-900' : 'text-white'}`}>
+                  <a href={`mailto:${CLINIC_INFO.email}`} className="hover:text-[#E92932] transition-colors">{CLINIC_INFO.email}</a>
                 </div>
               </div>
             </div>
 
             {/* Clinic Hours */}
-            <div className="flex items-start gap-4 p-4.5 rounded-2xl glass-medical-card">
-              <div className="w-10 h-10 rounded-2xl flex items-center justify-center flex-shrink-0 bg-[#E92932]/15 text-[#FF4148]">
-                <ClockIcon size={20} color="#FF4148" />
+            <div className={`flex items-start gap-4 p-4.5 rounded-2xl ${
+              isLight ? 'bg-white border border-slate-200/80 shadow-sm text-slate-900' : 'glass-medical-card text-white'
+            }`}>
+              <div className="w-10 h-10 rounded-2xl flex items-center justify-center flex-shrink-0 bg-[#E92932]/15 text-[#E92932]">
+                <ClockIcon size={20} color="#E92932" />
               </div>
               <div>
-                <div className="text-[11px] font-bold uppercase tracking-wider text-[#FF4148] mb-0.5">
+                <div className="text-[11px] font-bold uppercase tracking-wider text-[#E92932] mb-0.5">
                   CLINIC HOURS
                 </div>
-                <div className="text-sm font-semibold text-white">{CLINIC_INFO.hours}</div>
-                <div className="text-xs text-slate-400 mt-0.5">Sunday: Emergency Screening Only</div>
+                <div className={`text-sm font-semibold ${isLight ? 'text-slate-900' : 'text-white'}`}>{CLINIC_INFO.hours}</div>
+                <div className={`text-xs mt-0.5 ${isLight ? 'text-slate-500' : 'text-slate-400'}`}>Sunday: Emergency Screening Only</div>
               </div>
             </div>
           </div>
