@@ -1,26 +1,36 @@
-import React from 'react';
+import React, { lazy, Suspense } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { AppProvider } from './context/AppContext';
 import { Layout } from './components/Layout';
-
-// Single Page Landing & Booking Page
 import { Home } from './pages/Home';
-import { BookAppointment } from './pages/BookAppointment';
+
+// Code-split non-critical booking page for faster initial load
+const BookAppointment = lazy(() =>
+  import('./pages/BookAppointment').then((module) => ({ default: module.BookAppointment }))
+);
+
+// Smooth Fallback Component
+function RouteFallback() {
+  return (
+    <div className="min-h-screen flex items-center justify-center bg-[#030C16] text-white">
+      <div className="w-10 h-10 border-3 border-[#E92932] border-t-transparent rounded-full animate-spin" />
+    </div>
+  );
+}
 
 export default function App() {
   return (
     <AppProvider>
       <BrowserRouter>
-        <Routes>
-          {/* Single Page App Layout */}
-          <Route element={<Layout />}>
-            <Route path="/" element={<Home />} />
-            <Route path="/book-appointment" element={<BookAppointment />} />
-          </Route>
-
-          {/* Fallback to Home */}
-          <Route path="*" element={<Navigate to="/" replace />} />
-        </Routes>
+        <Suspense fallback={<RouteFallback />}>
+          <Routes>
+            <Route element={<Layout />}>
+              <Route path="/" element={<Home />} />
+              <Route path="/book-appointment" element={<BookAppointment />} />
+            </Route>
+            <Route path="*" element={<Navigate to="/" replace />} />
+          </Routes>
+        </Suspense>
       </BrowserRouter>
     </AppProvider>
   );

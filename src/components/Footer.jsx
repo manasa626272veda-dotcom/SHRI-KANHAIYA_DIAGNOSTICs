@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { Heart, MapPin, Phone, Mail, ArrowRight } from 'lucide-react';
+import { MapPin, Phone, Mail, ArrowRight } from 'lucide-react';
 import { CLINIC_INFO } from '../data/clinicData';
 
 const navLinks = [
@@ -46,22 +46,16 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10">
           {/* Col 1: Brand Info */}
           <div className="lg:col-span-4 space-y-4">
-            <Link to="/" className="flex items-center gap-3 shrink-0">
-              <div className="grid h-10 w-10 place-items-center rounded-xl bg-[#E92932] text-white shadow-[0_0_15px_rgba(233,41,50,0.5)]">
-                <Heart className="h-5.5 w-5.5 fill-white text-white" />
-              </div>
-              <div className="leading-tight text-white">
-                <div className="text-[16px] font-bold tracking-tight">
-                  Shri Kanhaiya
-                </div>
-                <div className="text-[10.5px] text-[#FF4148] font-semibold tracking-wide">
-                  Diagnostics & Chest Pain Clinic
-                </div>
-              </div>
+            <Link to="/" className="flex items-center shrink-0 group">
+              <img 
+                src="/kanhaiya-logo-darktheme.png" 
+                alt="Shri Kanhaiya Diagnostics & Chest Pain Clinic" 
+                className="h-11 sm:h-13 md:h-15 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
+              />
             </Link>
 
             <p className="text-sm text-slate-300 leading-relaxed max-w-sm">
-              Premier interventional cardiology practice in Nandini Layout, Bangalore. Led by Dr. Sree Ranga P.C. with 18+ years of dedicated cardiac excellence.
+              Premier cardiology practice in Nandini Layout, Bangalore. Led by Dr. Sree Ranga P.C. — Professor of Cardiology at BMCRI.
             </p>
 
             {/* Real Social Brand SVG Logos */}

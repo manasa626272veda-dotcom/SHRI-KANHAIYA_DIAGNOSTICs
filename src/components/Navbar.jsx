@@ -1,15 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { Menu, X, Heart, Sun, Moon } from 'lucide-react';
+import { Menu, X, Sun, Moon } from 'lucide-react';
 import { useAppState } from '../context/AppContext';
 
 const navItems = [
   { id: 'home', label: 'Home' },
   { id: 'about', label: 'About' },
-  { id: 'expertise', label: 'Expertise' },
   { id: 'services', label: 'Services' },
+  { id: 'research', label: 'Research' },
   { id: 'patient-care', label: 'Patient Care' },
   { id: 'gallery', label: 'Gallery' },
+  { id: 'our-story', label: 'Our Story' },
+  { id: 'faq', label: 'FAQ' },
   { id: 'contact', label: 'Contact' },
 ];
 
@@ -30,7 +32,7 @@ export function Navbar() {
       }
     };
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     handleScroll(); // Initial check
 
     return () => window.removeEventListener('scroll', handleScroll);
@@ -71,20 +73,12 @@ export function Navbar() {
         }`}
       >
         {/* Brand Logo */}
-        <Link to="/" className="flex items-center gap-2.5 sm:gap-3 shrink-0 group">
-          <div className="grid h-9 w-9 sm:h-10 sm:w-10 place-items-center rounded-xl bg-[#E92932] text-white shadow-[0_0_15px_rgba(233,41,50,0.5)] transition-transform group-hover:scale-105">
-            <Heart className="h-5 w-5 sm:h-5.5 sm:w-5.5 text-white" strokeWidth={2.2} />
-          </div>
-          <div className="leading-tight">
-            <div className={`text-[14px] sm:text-[16px] font-bold tracking-tight group-hover:text-[#FF4148] transition-colors ${
-              isLight ? 'text-slate-900' : 'text-white'
-            }`}>
-              Shri Kanhaiya
-            </div>
-            <div className="text-[9.5px] sm:text-[10.5px] text-[#FF4148] font-semibold tracking-wide">
-              Diagnostics & Chest Pain Clinic
-            </div>
-          </div>
+        <Link to="/" className="flex items-center shrink-0 group py-1">
+          <img 
+            src={isLight ? "/kanhaiya-logo-transparent.png" : "/kanhaiya-logo-darktheme.png"} 
+            alt="Shri Kanhaiya Diagnostics & Chest Pain Clinic" 
+            className="h-10 sm:h-12 md:h-14 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
+          />
         </Link>
 
         {/* Desktop Navigation Links */}
@@ -97,7 +91,7 @@ export function Navbar() {
             <button
               key={item.label}
               onClick={() => scrollToSection(item.id)}
-              className={`text-[13.5px] font-medium transition-all px-4 py-1.5 rounded-full cursor-pointer ${
+              className={`text-[12px] xl:text-[13.5px] font-medium transition-all px-2.5 xl:px-3.5 py-1.5 rounded-full cursor-pointer ${
                 isLight
                   ? 'text-slate-700 hover:text-[#E92932] hover:bg-white'
                   : 'text-slate-300 hover:text-white hover:bg-white/10'
