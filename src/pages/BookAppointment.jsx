@@ -479,7 +479,7 @@ export function BookAppointment() {
                     className={`${inputClass} pl-10 pr-3.5 ${
                       errors.phone ? 'border-[#E92932]' : isLight ? 'border-slate-300' : 'border-white/20'
                     }`}
-                    placeholder="+91 98450 11122"
+                    placeholder="+91 98868 34269"
                     value={form.phone}
                     onChange={(e) => setForm({ ...form, phone: e.target.value })}
                   />

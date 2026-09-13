@@ -62,7 +62,7 @@ export function DatePickerCalendar({ value, onChange }) {
     });
   }
 
-  const canPrev = new Date(year, month + 1, 0) >= today;
+  const canPrev = year > today.getFullYear() || (year === today.getFullYear() && month > today.getMonth());
 
   const prevMonth = () => {
     if (month === 0) {

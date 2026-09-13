@@ -189,11 +189,16 @@ export function Footer() {
                   446, 1st Main Rd, Sreenivas Nagar, Nandini Layout, Bengaluru, Karnataka 560096
                 </a>
               </div>
-              <div className="flex gap-2.5 items-center">
-                <Phone className="h-4 w-4 text-[#E92932] shrink-0" />
-                <a href={`tel:${CLINIC_INFO.phoneTel}`} className="hover:text-white font-medium">
-                  {CLINIC_INFO.phone}
-                </a>
+              <div className="flex gap-2.5 items-start">
+                <Phone className="h-4 w-4 text-[#E92932] shrink-0 mt-0.5" />
+                <div className="flex flex-col text-sm">
+                  <a href={`tel:${CLINIC_INFO.phone.replace(/\s+/g, '')}`} className="hover:text-white font-medium transition-colors">
+                    {CLINIC_INFO.phone} <span className="text-xs text-slate-400 font-normal">(Primary)</span>
+                  </a>
+                  <a href={`tel:${CLINIC_INFO.phoneTel.replace(/\s+/g, '')}`} className="hover:text-white font-medium transition-colors text-slate-300 text-xs">
+                    {CLINIC_INFO.phoneTel}
+                  </a>
+                </div>
               </div>
               <div className="flex gap-2.5 items-center">
                 <Mail className="h-4 w-4 text-[#E92932] shrink-0" />

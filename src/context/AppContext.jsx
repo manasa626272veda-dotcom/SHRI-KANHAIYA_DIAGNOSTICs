@@ -25,6 +25,20 @@ const calculateAge = (dob) => {
   return age;
 };
 
+const parseDateTime = (dateStr, timeStr) => {
+  if (!dateStr) return 0;
+  if (!timeStr) return new Date(dateStr + 'T00:00:00').getTime();
+  const parts = timeStr.trim().split(' ');
+  if (parts.length < 2) return new Date(dateStr + 'T00:00:00').getTime();
+  let [hours, minutes] = parts[0].split(':').map(Number);
+  const period = parts[1].toUpperCase();
+  if (period === 'PM' && hours < 12) hours += 12;
+  if (period === 'AM' && hours === 12) hours = 0;
+  const d = new Date(dateStr + 'T00:00:00');
+  d.setHours(hours || 0, minutes || 0, 0, 0);
+  return d.getTime();
+};
+
 export function AppProvider({ children }) {
   const [appointments, setAppointments] = useState(() => {
     const saved = localStorage.getItem('skd_appointments');
@@ -152,7 +166,7 @@ export function AppProvider({ children }) {
         a.status !== "Completed"
     );
     if (list.length === 0) return null;
-    return [...list].sort((a, b) => (a.date + a.time > b.date + b.time ? 1 : -1))[0];
+    return [...list].sort((a, b) => parseDateTime(a.date, a.time) - parseDateTime(b.date, b.time))[0];
   }, [appointments, session.patientName]);
 
   return (

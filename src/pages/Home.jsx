@@ -233,7 +233,7 @@ function Hero() {
               Book an Appointment
               <ArrowRight size={16} color="white" />
             </Link>
-            <a href={`tel:${CLINIC_INFO.phoneTel}`} className={`inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full font-semibold border transition-all duration-300 hover:scale-105 active:scale-95 cursor-pointer ${
+            <a href={`tel:${CLINIC_INFO.phone.replace(/\s+/g, '')}`} className={`inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full font-semibold border transition-all duration-300 hover:scale-105 active:scale-95 cursor-pointer ${
               isLight
                 ? 'text-slate-800 border-slate-300/90 bg-white hover:bg-slate-50 shadow-sm'
                 : 'text-white border-white/20 bg-white/5 hover:bg-white/10'
@@ -1172,6 +1172,16 @@ function VideoSection() {
 
   const videoPath = "/shri-kanhaiya-clinic-tour.mp4";
 
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') setVideoModal(false);
+    };
+    if (videoModal) {
+      window.addEventListener('keydown', handleKeyDown);
+      return () => window.removeEventListener('keydown', handleKeyDown);
+    }
+  }, [videoModal]);
+
   return (
     <section id="our-story" className={`py-14 lg:py-16 px-6 lg:px-8 relative z-10 transition-colors duration-300 ${
       isLight ? 'bg-[#F1F5F9]' : 'bg-[#030A14]'
@@ -1329,7 +1339,7 @@ function Appointment() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mb-8">
             {[
-              { icon: <PhoneIcon size={18} color="#E92932" />, label: "Phone", val: "+91 8023456789" },
+              { icon: <PhoneIcon size={18} color="#E92932" />, label: "Phone", val: CLINIC_INFO.phone },
               { icon: <MapPinIcon size={18} color="#E92932" />, label: "Location", val: "Nandini Layout, Bangalore" },
               { icon: <ClockIcon size={18} color="#E92932" />, label: "Timings", val: "Mon–Sat: 9am – 8pm" },
             ].map(item => (
@@ -1351,7 +1361,7 @@ function Appointment() {
             <Link to="/book-appointment" className="inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-full font-semibold text-white transition-all duration-300 hover:scale-105 btn-shine bg-[#E92932] shadow-[0_8px_30px_rgba(233,41,50,0.4)]">
               Book an Appointment <ArrowRight size={16} color="white" />
             </Link>
-            <a href="https://wa.me/919845011122" target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-full font-semibold transition-all duration-300 hover:scale-105 border border-[#25D366]/40 text-[#25D366] bg-[#25D366]/10">
+            <a href={`https://wa.me/${CLINIC_INFO.phoneTel.replace(/[^0-9]/g, '')}`} target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-full font-semibold transition-all duration-300 hover:scale-105 border border-[#25D366]/40 text-[#25D366] bg-[#25D366]/10">
               <WhatsAppIcon size={18} /> WhatsApp Us
             </a>
           </div>
@@ -1436,7 +1446,7 @@ function Contact() {
           <div className="flex flex-col justify-between gap-3.5">
             {[
               { title: "ADDRESS", name: CLINIC_INFO.name, sub: CLINIC_INFO.address, icon: <MapPinIcon size={20} color="#E92932" /> },
-              { title: "PHONE", name: CLINIC_INFO.phone, sub: "+91 98450 11122", icon: <PhoneIcon size={20} color="#E92932" />, tel: true },
+              { title: "PHONE", name: CLINIC_INFO.phone, sub: CLINIC_INFO.phoneTel, icon: <PhoneIcon size={20} color="#E92932" />, tel: true },
               { title: "EMAIL", name: CLINIC_INFO.email, sub: "Response within 24 hours", icon: <MailIcon size={20} color="#E92932" />, mail: true },
               { title: "CLINIC HOURS", name: CLINIC_INFO.hours, sub: "Sunday: Emergency Screening Only", icon: <ClockIcon size={20} color="#E92932" /> },
             ].map((c, i) => (
@@ -1453,8 +1463,8 @@ function Contact() {
                     </div>
                     {c.tel ? (
                       <div className={`flex flex-col text-sm font-semibold space-y-0.5 ${isLight ? 'text-slate-900' : 'text-white'}`}>
-                        <a href={`tel:${CLINIC_INFO.phoneTel}`} className="hover:text-[#E92932] transition-colors">{c.name}</a>
-                        <a href="tel:+91 9845011122" className="hover:text-[#E92932] transition-colors">{c.sub}</a>
+                        <a href={`tel:${CLINIC_INFO.phone.replace(/\s+/g, '')}`} className="hover:text-[#E92932] transition-colors">{c.name} <span className="text-xs font-normal text-slate-400">(Primary)</span></a>
+                        <a href={`tel:${CLINIC_INFO.phoneTel.replace(/\s+/g, '')}`} className="hover:text-[#E92932] transition-colors">{c.sub}</a>
                       </div>
                     ) : c.mail ? (
                       <div className={`flex flex-col text-sm font-semibold space-y-0.5 ${isLight ? 'text-slate-900' : 'text-white'}`}>
