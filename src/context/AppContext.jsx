@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, useCallback, useMemo, useEffect } from 'react';
 import { INITIAL_APPOINTMENTS, CLINIC_INFO } from '../data/clinicData';
+import { sendAppointmentToGoogleSheet } from '../services/googleSheetService';
 
 const AppContext = createContext(null);
 
@@ -117,6 +118,12 @@ export function AppProvider({ children }) {
 
     setAppointments((prev) => [newBooking, ...prev]);
     setSession((prev) => ({ ...prev, patientName: data.patientName }));
+
+    // Send to Google Sheet & trigger Gmail notification asynchronously
+    sendAppointmentToGoogleSheet(newBooking).catch((err) => {
+      console.error('Failed to trigger Google Sheet webhook:', err);
+    });
+
     return newBooking;
   }, []);
 

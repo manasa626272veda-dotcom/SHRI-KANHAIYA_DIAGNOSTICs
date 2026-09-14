@@ -198,6 +198,28 @@ body:hover::-webkit-scrollbar-thumb {
   }
 }
 
+/* Infinite Left-to-Right Marquee Loop */
+@keyframes marqueeLeftToRight {
+  0% {
+    transform: translateX(-50%);
+  }
+  100% {
+    transform: translateX(0%);
+  }
+}
+
+.animate-marquee-ltr {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+  animation: marqueeLeftToRight var(--marquee-speed, 40s) linear infinite;
+}
+
+.marquee-container:hover .animate-marquee-ltr {
+  animation-play-state: paused;
+}
+
+
 @keyframes scrollDot {
   0% {
     transform: translateY(-4px);

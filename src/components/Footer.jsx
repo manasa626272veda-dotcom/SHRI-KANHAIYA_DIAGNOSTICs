@@ -6,10 +6,14 @@ import { CLINIC_INFO } from '../data/clinicData';
 const navLinks = [
   { id: 'home', label: 'Home' },
   { id: 'about', label: 'About Dr. Sree Ranga' },
-  { id: 'expertise', label: 'Expertise' },
   { id: 'services', label: 'Cardiology Services' },
+  { id: 'research', label: 'Research & Academics' },
+  { id: 'patient-care', label: 'Patient Care Journey' },
   { id: 'gallery', label: 'Clinical Gallery' },
+  { id: 'our-story', label: 'Our Story & Video Tour' },
+  { id: 'faq', label: 'Frequently Asked Questions' },
   { id: 'contact', label: 'Contact & Location' },
+  { path: '/book-appointment', label: 'Book Appointment', isRoute: true },
 ];
 
 const serviceLinks = [
@@ -43,7 +47,7 @@ export function Footer() {
   return (
     <footer className="bg-[#061A2B] text-white border-t border-white/10 relative overflow-hidden">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 relative z-10">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 lg:gap-10">
           {/* Col 1: Brand Info */}
           <div className="lg:col-span-4 space-y-4">
             <Link to="/" className="flex items-center shrink-0 group">
@@ -135,26 +139,37 @@ export function Footer() {
           </div>
 
           {/* Col 2: Quick Links */}
-          <div className="lg:col-span-2 space-y-3">
+          <div className="lg:col-span-3 space-y-3">
             <div className="text-xs font-semibold uppercase tracking-wider text-[#FF4148]">
               Quick Links
             </div>
             <ul className="space-y-2 text-sm text-slate-300">
               {navLinks.map((link) => (
                 <li key={link.label}>
-                  <button
-                    onClick={() => scrollToSection(link.id)}
-                    className="hover:text-white transition-colors cursor-pointer text-left"
-                  >
-                    {link.label}
-                  </button>
+                  {link.isRoute ? (
+                    <Link
+                      to={link.path}
+                      className="group inline-flex items-center gap-1.5 hover:text-white transition-all cursor-pointer text-left"
+                    >
+                      <span className="text-[#E92932] group-hover:translate-x-1 transition-transform font-bold">›</span>
+                      <span>{link.label}</span>
+                    </Link>
+                  ) : (
+                    <button
+                      onClick={() => scrollToSection(link.id)}
+                      className="group inline-flex items-center gap-1.5 hover:text-white transition-all cursor-pointer text-left"
+                    >
+                      <span className="text-[#E92932] group-hover:translate-x-1 transition-transform font-bold">›</span>
+                      <span>{link.label}</span>
+                    </button>
+                  )}
                 </li>
               ))}
             </ul>
           </div>
 
           {/* Col 3: Services */}
-          <div className="lg:col-span-3 space-y-3">
+          <div className="lg:col-span-2 space-y-3">
             <div className="text-xs font-semibold uppercase tracking-wider text-[#FF4148]">
               Cardiac Services
             </div>
@@ -163,9 +178,10 @@ export function Footer() {
                 <li key={serv}>
                   <button
                     onClick={() => scrollToSection('services')}
-                    className="hover:text-white transition-colors cursor-pointer text-left"
+                    className="group inline-flex items-center gap-1.5 hover:text-white transition-all cursor-pointer text-left"
                   >
-                    {serv}
+                    <span className="text-[#E92932] group-hover:translate-x-1 transition-transform font-bold">›</span>
+                    <span>{serv}</span>
                   </button>
                 </li>
               ))}
@@ -193,7 +209,7 @@ export function Footer() {
                 <Phone className="h-4 w-4 text-[#E92932] shrink-0 mt-0.5" />
                 <div className="flex flex-col text-sm">
                   <a href={`tel:${CLINIC_INFO.phone.replace(/\s+/g, '')}`} className="hover:text-white font-medium transition-colors">
-                    {CLINIC_INFO.phone} <span className="text-xs text-slate-400 font-normal">(Primary)</span>
+                    {CLINIC_INFO.phone}
                   </a>
                   <a href={`tel:${CLINIC_INFO.phoneTel.replace(/\s+/g, '')}`} className="hover:text-white font-medium transition-colors text-slate-300 text-xs">
                     {CLINIC_INFO.phoneTel}

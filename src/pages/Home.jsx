@@ -102,7 +102,7 @@ function useCounter(target, duration = 1800) {
 
 // ─── Image & Asset URLs ────────────────────────────────────────────────────────
 const IMGS = {
-  doctorHero: "/dr-sree-ranga-pc.png",
+  doctorHero: "/hero-doctor-heart.jpg",
   doctorAbout: "/dr-sree-ranga-pc.png",
   aiPreventive: "/ai-preventive-cardiology.jpg",
   aiDiagnostics: "/ai-cardiac-diagnostics.jpg",
@@ -273,7 +273,7 @@ function Hero() {
               : 'shadow-[0_40px_80px_rgba(0,0,0,0.6),0_0_0_1px_rgba(220,228,234,0.1)]'
           }`}>
             <img src={IMGS.doctorHero} alt="Dr. Sree Ranga P.C., Professor & Consultant Cardiologist"
-              className="w-full h-[360px] sm:h-[480px] lg:h-[580px] object-cover object-top transition-transform duration-700 group-hover:scale-105" />
+              className="w-full h-[360px] sm:h-[480px] lg:h-[580px] object-cover object-center transition-transform duration-700 group-hover:scale-105" />
             <div className={`absolute inset-0 bg-gradient-to-t ${
               isLight ? 'from-slate-900/35 via-transparent to-transparent' : 'from-[#041220] via-transparent to-transparent'
             }`} />
@@ -1019,11 +1019,18 @@ function Metrics() {
 function Gallery() {
   const headRef = useReveal();
   const [lightboxIndex, setLightboxIndex] = useState(null);
-  const [showAll, setShowAll] = useState(false);
   const { theme } = useAppState();
   const isLight = theme === 'light';
 
-  const visibleImages = showAll ? CLINIC_GALLERY_IMAGES : CLINIC_GALLERY_IMAGES.slice(0, 12);
+  const row1 = CLINIC_GALLERY_IMAGES.filter((_, i) => i % 3 === 0);
+  const row2 = CLINIC_GALLERY_IMAGES.filter((_, i) => i % 3 === 1);
+  const row3 = CLINIC_GALLERY_IMAGES.filter((_, i) => i % 3 === 2);
+
+  const rows = [
+    { items: row1, duration: '40s' },
+    { items: row2, duration: '34s' },
+    { items: row3, duration: '44s' },
+  ];
 
   useEffect(() => {
     const handleKeyDown = (e) => {
@@ -1041,52 +1048,61 @@ function Gallery() {
   }, [lightboxIndex]);
 
   return (
-    <section id="gallery" className={`py-10 sm:py-14 lg:py-16 px-4 sm:px-6 lg:px-8 relative z-10 transition-colors duration-300 ${
+    <section id="gallery" className={`py-12 sm:py-16 lg:py-20 relative z-10 transition-colors duration-300 overflow-hidden ${
       isLight ? 'bg-[#F8FAFC] border-y border-slate-200/80' : 'bg-[#051322]/90 backdrop-blur-xl border-y border-white/10'
     }`}>
-      <div className="max-w-7xl mx-auto">
-        <div ref={headRef} className="reveal mb-8 sm:mb-10 text-center sm:text-left">
-          <div className="eyebrow mb-2">
-            Clinical Gallery
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-8 sm:mb-12">
+        <div ref={headRef} className="reveal text-center sm:text-left flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+          <div>
+            <div className="eyebrow mb-2">
+              Clinical Gallery
+            </div>
+            <h2 className={`text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold ${isLight ? 'text-slate-900' : 'text-white'}`}>
+              Explore our modern facility & diagnostic suites.
+            </h2>
+            <p className={`mt-2 text-sm sm:text-base ${isLight ? 'text-slate-600' : 'text-slate-400'}`}>
+              Take a look inside Shri Kanhaiya Diagnostics & Chest Pain Clinic in Nandini Layout.
+            </p>
           </div>
-          <h2 className={`text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold ${isLight ? 'text-slate-900' : 'text-white'}`}>
-            Explore our modern facility & diagnostic suites.
-          </h2>
-          <p className={`mt-2 text-sm sm:text-base ${isLight ? 'text-slate-600' : 'text-slate-400'}`}>
-            Take a look inside Shri Kanhaiya Diagnostics & Chest Pain Clinic in Nandini Layout.
-          </p>
+          <div className={`hidden sm:flex items-center gap-2 text-xs font-semibold px-4 py-2 rounded-full shrink-0 border ${
+            isLight ? 'bg-slate-200/60 text-slate-700 border-slate-300/70' : 'bg-white/10 text-slate-300 border-white/15'
+          }`}>
+            <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
+            <span>Hover to pause • Click photo to view</span>
+          </div>
         </div>
+      </div>
 
-        <div className="columns-1 sm:columns-2 md:columns-3 lg:columns-4 gap-3 sm:gap-4 space-y-3 sm:space-y-4">
-          {visibleImages.map((img, i) => (
-            <GalleryItem
-              key={img.src}
-              img={img}
-              delay={(i % 4) + 1}
-              onClick={() => setLightboxIndex(showAll ? i : CLINIC_GALLERY_IMAGES.findIndex(item => item.src === img.src))}
-              isLight={isLight}
-            />
-          ))}
-        </div>
+      {/* 3 Infinite Rows Scrolling Left-to-Right */}
+      <div className="relative w-full space-y-4 sm:space-y-6">
+        {/* Soft edge fade overlays */}
+        <div className={`absolute top-0 bottom-0 left-0 w-12 sm:w-28 md:w-40 z-20 pointer-events-none bg-gradient-to-r ${
+          isLight ? 'from-[#F8FAFC] to-transparent' : 'from-[#051322] to-transparent'
+        }`} />
+        <div className={`absolute top-0 bottom-0 right-0 w-12 sm:w-28 md:w-40 z-20 pointer-events-none bg-gradient-to-l ${
+          isLight ? 'from-[#F8FAFC] to-transparent' : 'from-[#051322] to-transparent'
+        }`} />
 
-        {CLINIC_GALLERY_IMAGES.length > 12 && (
-          <div className="mt-10 text-center">
-            <button
-              onClick={() => setShowAll(!showAll)}
-              className={`inline-flex items-center gap-2 px-6 py-3 rounded-full font-semibold text-sm transition-all duration-300 hover:scale-105 cursor-pointer ${
-                isLight
-                  ? 'bg-slate-900 text-white hover:bg-slate-800 shadow-md'
-                  : 'bg-white/15 text-white hover:bg-white/25 border border-white/20'
-              }`}
+        {rows.map((rowObj, rowIndex) => (
+          <div key={rowIndex} className="marquee-container overflow-hidden w-full flex">
+            <div
+              className="animate-marquee-ltr flex gap-4 sm:gap-6 pr-4 sm:pr-6"
+              style={{ '--marquee-speed': rowObj.duration }}
             >
-              {showAll ? (
-                <>Show Less</>
-              ) : (
-                <>View All {CLINIC_GALLERY_IMAGES.length} Clinic Photos ({CLINIC_GALLERY_IMAGES.length - 12} More)</>
-              )}
-            </button>
+              {[...rowObj.items, ...rowObj.items].map((img, i) => {
+                const originalIndex = CLINIC_GALLERY_IMAGES.findIndex(item => item.src === img.src);
+                return (
+                  <GalleryItem
+                    key={`${img.src}-${i}`}
+                    img={img}
+                    isLight={isLight}
+                    onClick={() => setLightboxIndex(originalIndex >= 0 ? originalIndex : 0)}
+                  />
+                );
+              })}
+            </div>
           </div>
-        )}
+        ))}
       </div>
 
       {lightboxIndex !== null && (
@@ -1139,25 +1155,31 @@ function Gallery() {
   );
 }
 
-function GalleryItem({ img, delay, onClick, isLight }) {
-  const ref = useReveal();
-  const [hov, setHov] = useState(false);
+function GalleryItem({ img, onClick, isLight }) {
   return (
-    <div ref={ref} className={`reveal reveal-delay-${delay} relative rounded-xl overflow-hidden cursor-pointer mb-4 inline-block w-full border transition-all duration-300 ${
-      isLight ? 'border-slate-200/90 shadow-sm hover:shadow-lg' : 'border-white/10'
-    }`}
-      onMouseEnter={() => setHov(true)} onMouseLeave={() => setHov(false)} onClick={onClick}>
-      <img src={img.src} alt="Clinic facility photo" className="w-full object-cover transition-transform duration-700" loading="lazy" decoding="async"
-        style={{ transform: hov ? "scale(1.08)" : "scale(1)" }} />
-      <div className="absolute inset-0 flex flex-col items-center justify-center transition-all duration-300"
-        style={{ background: hov ? "rgba(6,26,43,0.6)" : "transparent" }}>
-        {hov && (
-          <div className="animate-fade-in flex flex-col items-center">
-            <svg width="36" height="36" fill="none" stroke="white" strokeWidth="1.5" viewBox="0 0 24 24">
-              <circle cx="11" cy="11" r="8" /><path d="M21 21l-4.35-4.35" />
-            </svg>
-          </div>
-        )}
+    <div
+      className={`group relative shrink-0 rounded-2xl overflow-hidden cursor-pointer border transition-all duration-300 ${
+        isLight
+          ? 'border-slate-200/90 shadow-sm hover:shadow-xl hover:border-red-500/30'
+          : 'border-white/10 shadow-lg hover:shadow-2xl hover:border-red-500/40'
+      } w-64 sm:w-80 md:w-96 h-40 sm:h-52 md:h-56`}
+      onClick={onClick}
+    >
+      <img
+        src={img.src}
+        alt="Clinic facility photo"
+        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-108"
+        loading="lazy"
+        decoding="async"
+      />
+      <div className="absolute inset-0 flex items-center justify-center transition-all duration-300 bg-slate-950/0 group-hover:bg-slate-950/40 backdrop-blur-none group-hover:backdrop-blur-[2px]">
+        <div className="opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-3 group-hover:translate-y-0 flex items-center gap-2 px-4 py-2 rounded-full bg-red-600/90 text-white text-xs font-semibold shadow-lg">
+          <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+            <circle cx="11" cy="11" r="8" />
+            <path d="M21 21l-4.35-4.35" />
+          </svg>
+          <span>View Photo</span>
+        </div>
       </div>
     </div>
   );
@@ -1463,7 +1485,7 @@ function Contact() {
                     </div>
                     {c.tel ? (
                       <div className={`flex flex-col text-sm font-semibold space-y-0.5 ${isLight ? 'text-slate-900' : 'text-white'}`}>
-                        <a href={`tel:${CLINIC_INFO.phone.replace(/\s+/g, '')}`} className="hover:text-[#E92932] transition-colors">{c.name} <span className="text-xs font-normal text-slate-400">(Primary)</span></a>
+                        <a href={`tel:${CLINIC_INFO.phone.replace(/\s+/g, '')}`} className="hover:text-[#E92932] transition-colors">{c.name}</a>
                         <a href={`tel:${CLINIC_INFO.phoneTel.replace(/\s+/g, '')}`} className="hover:text-[#E92932] transition-colors">{c.sub}</a>
                       </div>
                     ) : c.mail ? (
