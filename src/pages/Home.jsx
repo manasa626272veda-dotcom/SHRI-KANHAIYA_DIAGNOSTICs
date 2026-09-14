@@ -103,7 +103,7 @@ function useCounter(target, duration = 1800) {
 // ─── Image & Asset URLs ────────────────────────────────────────────────────────
 const IMGS = {
   doctorHero: "/hero-doctor-heart.jpg",
-  doctorAbout: "/dr-sree-ranga-pc.png",
+  doctorAbout: "/dr-sree-ranga-pc-about.jpg",
   aiPreventive: "/ai-preventive-cardiology.jpg",
   aiDiagnostics: "/ai-cardiac-diagnostics.jpg",
   aiInterventional: "/ai-interventional-cardiology.jpg",
