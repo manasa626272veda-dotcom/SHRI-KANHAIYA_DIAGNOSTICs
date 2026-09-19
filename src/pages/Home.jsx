@@ -110,7 +110,7 @@ function useCounter(target, duration = 1800) {
 
 // ─── Image & Asset URLs ────────────────────────────────────────────────────────
 const IMGS = {
-  doctorHero: "/dr-sree-ranga-hero-transparent.png",
+  doctorHero: "/dr-sree-ranga-hero-laptop.jpg",
   doctorAbout: "/dr-sree-ranga-pc-about.jpg",
   aiPreventive: "/ai-preventive-cardiology.jpg",
   aiDiagnostics: "/ai-cardiac-diagnostics.jpg",
@@ -224,24 +224,21 @@ function Hero() {
               </div>
             </div>
 
-            {/* Doctor Portrait Container - Perfectly proportioned for Mobile & Desktop with mb-6 margin on mobile */}
-            <div className="animate-float-slow relative w-full max-w-[280px] sm:max-w-[360px] lg:max-w-[450px] h-[310px] sm:h-[420px] lg:h-[540px] flex items-end justify-center bg-transparent mb-6 lg:mb-0">
-              <div className="absolute inset-[-15%] rounded-full blur-3xl -z-10 bg-[#FFFFFF]/80" />
+            {/* Doctor Portrait Container - Styled with subtle rounded frame & glass backdrop */}
+            <div className="animate-float-slow relative w-full max-w-[320px] sm:max-w-[390px] lg:max-w-[450px] aspect-[4/5] rounded-3xl sm:rounded-[36px] overflow-hidden shadow-2xl border-4 border-white/80 bg-gradient-to-b from-white/90 to-blue-50/50 mb-6 lg:mb-0 group">
+              <div className="absolute inset-[-15%] rounded-full blur-3xl -z-10 bg-[#FFFFFF]/90" />
 
               <img
                 src={IMGS.doctorHero}
                 alt="Dr. Sree Ranga P.C. - Professor of Cardiology (BMCRI) & Consultant Cardiologist"
-                className="w-full h-full object-contain object-bottom transition-transform duration-700 hover:scale-[1.02]"
+                className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
                 style={{
-                  WebkitMaskImage:
-                    'linear-gradient(to bottom, black 78%, rgba(0,0,0,0.8) 90%, transparent 100%)',
-                  maskImage:
-                    'linear-gradient(to bottom, black 78%, rgba(0,0,0,0.8) 90%, transparent 100%)'
+                  imageRendering: 'high-quality',
                 }}
               />
 
               {/* Doctor Info Pill Floating Subtly Over Composition */}
-              <div className="absolute bottom-1.5 sm:bottom-2 left-2 sm:left-4 right-2 sm:right-4 backdrop-blur-md px-3 sm:px-4 py-2 sm:py-2.5 rounded-xl sm:rounded-2xl shadow-xs border border-white/70 bg-white/90 text-[#0E2F56] flex items-center justify-between z-20 transition-transform duration-300 hover:scale-[1.02]">
+              <div className="absolute bottom-2.5 left-2.5 right-2.5 sm:bottom-3.5 sm:left-3.5 sm:right-3.5 backdrop-blur-md px-3.5 sm:px-4 py-2.5 rounded-xl sm:rounded-2xl shadow-lg border border-white/80 bg-white/92 text-[#0E2F56] flex items-center justify-between z-20 transition-transform duration-300">
                 <div>
                   <div className="flex items-center gap-1.5 text-[11px] sm:text-xs font-bold">
                     <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse-dot inline-block" />
