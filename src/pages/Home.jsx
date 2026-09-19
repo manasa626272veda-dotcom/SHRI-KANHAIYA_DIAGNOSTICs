@@ -213,18 +213,6 @@ function Hero() {
           {/* LEFT COLUMN: Doctor Photograph with Merged Boundary */}
           <div className="lg:col-span-5 relative flex flex-col items-center lg:items-start justify-end animate-[fadeSlideUp_0.8s_ease-out_both]">
 
-            {/* Handwritten Script Badge - Positioned on Right Side */}
-            <div className="absolute top-4 -right-2 sm:-right-6 lg:-right-8 z-30 pointer-events-none select-none rotate-2">
-              <div className="inline-block bg-white/85 backdrop-blur-md px-3 sm:px-3.5 py-1.5 rounded-2xl shadow-sm border border-white/80">
-                <span className="font-cursive text-xl sm:text-2xl lg:text-3xl text-[#1E3A8A] font-bold tracking-wide leading-tight block">
-                  Caring for every heartbeat
-                </span>
-                <svg className="w-24 sm:w-28 h-2 mt-0.5" viewBox="0 0 160 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M2 9C45 3 115 2 158 9" stroke="#E52323" strokeWidth="3.2" strokeLinecap="round" />
-                </svg>
-              </div>
-            </div>
-
             {/* Doctor Portrait Container - Seamlessly Merged with Hero Section Background */}
             <div className="relative w-full max-w-[340px] sm:max-w-[420px] lg:max-w-[490px] aspect-[4/5] overflow-hidden mb-6 lg:mb-0 group select-none">
               {/* Soft Ambient Radial Backlight */}
@@ -242,6 +230,16 @@ function Hero() {
                     'radial-gradient(ellipse 92% 90% at 48% 50%, black 60%, rgba(0,0,0,0.85) 78%, rgba(0,0,0,0.3) 92%, transparent 100%)',
                 }}
               />
+
+              {/* Handwritten Script Badge - Positioned INSIDE Image on Upper Left */}
+              <div className="absolute top-8 sm:top-12 left-4 sm:left-6 z-20 pointer-events-none select-none -rotate-6">
+                <span className="font-cursive text-xl sm:text-2xl lg:text-3xl text-[#0E2F56] font-bold tracking-wide leading-tight block drop-shadow-xs">
+                  Caring<br />for every<br />heartbeat
+                </span>
+                <svg className="w-16 sm:w-20 h-2 mt-0.5" viewBox="0 0 160 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M2 9C45 3 115 2 158 9" stroke="#E52323" strokeWidth="3.4" strokeLinecap="round" />
+                </svg>
+              </div>
             </div>
 
           </div>
