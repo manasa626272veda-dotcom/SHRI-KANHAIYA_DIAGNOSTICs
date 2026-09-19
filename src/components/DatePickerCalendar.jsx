@@ -41,8 +41,7 @@ export function DatePickerCalendar({ value, onChange }) {
     const d = new Date(year, month, i);
     d.setHours(0, 0, 0, 0);
     const iso = `${year}-${String(month + 1).padStart(2, '0')}-${String(i).padStart(2, '0')}`;
-    const isSunday = d.getDay() === 0;
-    const disabled = d < today || d > maxDate || isSunday;
+    const disabled = d < today || d > maxDate;
 
     cells.push({
       day: i,
@@ -147,7 +146,7 @@ export function DatePickerCalendar({ value, onChange }) {
       <p className={`mt-4 text-xs text-center sm:text-left font-medium border-t pt-3 ${
         isLight ? 'text-slate-500 border-slate-200' : 'text-slate-300 border-white/10'
       }`}>
-        Closed on Sundays • Bookable up to 60 days ahead
+        Mon-Sat: 7 AM - 10 PM | Sun: 7 AM - 1 PM • Bookable up to 60 days ahead
       </p>
     </div>
   );

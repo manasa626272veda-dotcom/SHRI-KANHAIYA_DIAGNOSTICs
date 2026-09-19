@@ -1,4 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&display=swap');
 @import "tailwindcss";
+
+.font-cursive {
+  font-family: 'Caveat', cursive, sans-serif;
+}
 
 :root {
   --navy: #061A2B;
@@ -25,8 +30,8 @@ html {
 
 body {
   font-family: 'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  background-color: #030C16;
-  color: #F8FAFC;
+  background-color: #F5F8FC;
+  color: #0F172A;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
@@ -140,28 +145,127 @@ body:hover::-webkit-scrollbar-thumb {
   }
 }
 
-@keyframes heartbeatPulse {
-
-  0%,
-  100% {
+@keyframes cardiacBeat {
+  0% {
     transform: scale(1);
-    opacity: 0.9;
   }
-
   14% {
-    transform: scale(1.12);
-    opacity: 1;
-  }
-
-  28% {
-    transform: scale(1);
-    opacity: 0.9;
-  }
-
-  42% {
     transform: scale(1.08);
+  }
+  28% {
+    transform: scale(1.02);
+  }
+  42% {
+    transform: scale(1.15);
+  }
+  70%, 100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes heartAuraPulse {
+  0% {
+    transform: scale(0.9);
+    opacity: 0.25;
+  }
+  42% {
+    transform: scale(1.3);
+    opacity: 0.65;
+  }
+  70%, 100% {
+    transform: scale(0.9);
+    opacity: 0.25;
+  }
+}
+
+.animate-cardiac-beat {
+  animation: cardiacBeat 1.35s infinite cubic-bezier(0.215, 0.61, 0.355, 1);
+  transform-origin: center center;
+}
+
+.animate-heart-aura {
+  animation: heartAuraPulse 1.35s infinite cubic-bezier(0.215, 0.61, 0.355, 1);
+  transform-origin: center center;
+}
+
+.animate-subtle-float {
+  animation: subtleFloat 6s ease-in-out infinite;
+}
+
+@keyframes floatSlow {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-9px);
+  }
+}
+
+.animate-float-slow {
+  animation: floatSlow 7s ease-in-out infinite;
+}
+
+@keyframes bgGlowPulse {
+  0%, 100% {
+    opacity: 0.65;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.95;
+    transform: scale(1.08);
+  }
+}
+
+.animate-hero-bg-glow {
+  animation: bgGlowPulse 7s ease-in-out infinite;
+}
+
+@keyframes ecgDrawPulse {
+  0% {
+    stroke-dashoffset: 200;
+    opacity: 0.5;
+  }
+  50% {
+    stroke-dashoffset: 0;
     opacity: 1;
   }
+  100% {
+    stroke-dashoffset: -200;
+    opacity: 0.5;
+  }
+}
+
+.animate-ecg-draw {
+  stroke-dasharray: 200;
+  animation: ecgDrawPulse 3.5s ease-in-out infinite;
+}
+
+@keyframes buttonGlowPulse {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(229, 35, 35, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 0 14px rgba(229, 35, 35, 0);
+  }
+}
+
+.animate-button-glow {
+  animation: buttonGlowPulse 2.4s ease-in-out infinite;
+}
+
+@keyframes pulseDot {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.4);
+    opacity: 0.5;
+  }
+}
+
+.animate-pulse-dot {
+  animation: pulseDot 1.6s ease-in-out infinite;
 }
 
 @keyframes ecgLine {
@@ -384,82 +488,58 @@ body:hover::-webkit-scrollbar-thumb {
   white-space: nowrap;
 }
 
-/* Master Background Design System for Clinic */
+/* Master Background Design System for Clinic (Light Mode Default) */
 .bg-clinic-canvas {
-  background-color: #030C16;
-  background-image:
-    radial-gradient(circle at 50% 0%, rgba(233, 41, 50, 0.12) 0%, transparent 45%),
-    radial-gradient(circle at 100% 40%, rgba(2, 132, 199, 0.08) 0%, transparent 40%),
-    radial-gradient(circle at 0% 80%, rgba(233, 41, 50, 0.07) 0%, transparent 40%);
-  background-attachment: fixed;
-}
-
-.bg-medical-grid {
-  background-size: 50px 50px;
-  background-image:
-    linear-gradient(to right, rgba(220, 228, 234, 0.04) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(220, 228, 234, 0.04) 1px, transparent 1px);
-}
-
-.bg-medical-dots {
-  background-image: radial-gradient(rgba(220, 228, 234, 0.12) 1px, transparent 1px);
-  background-size: 24px 24px;
-}
-
-.glass-medical-card {
-  background: rgba(6, 26, 43, 0.75);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(220, 228, 234, 0.12);
-  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.glass-medical-card:hover {
-  background: rgba(6, 26, 43, 0.88);
-  border-color: rgba(233, 41, 50, 0.35);
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4), 0 0 25px rgba(233, 41, 50, 0.15);
-}
-
-/* Light Mode Overrides for Professional Medical Aesthetics */
-html.light,
-html.light body {
-  background-color: #F5F8FC;
-  color: #0F172A;
-}
-
-html.light .bg-clinic-canvas {
   background-color: #F5F8FC;
   background-image:
     radial-gradient(circle at 50% 0%, rgba(233, 41, 50, 0.09) 0%, transparent 50%),
     radial-gradient(circle at 100% 40%, rgba(2, 132, 199, 0.1) 0%, transparent 45%),
     radial-gradient(circle at 0% 80%, rgba(233, 41, 50, 0.08) 0%, transparent 45%);
+  background-attachment: fixed;
 }
 
-html.light .bg-medical-grid {
+.bg-medical-grid {
   background-size: 40px 40px;
   background-image:
     linear-gradient(to right, rgba(15, 23, 42, 0.05) 1px, transparent 1px),
     linear-gradient(to bottom, rgba(15, 23, 42, 0.05) 1px, transparent 1px);
 }
 
-html.light .bg-medical-dots {
+.bg-medical-dots {
   background-image: radial-gradient(rgba(15, 23, 42, 0.12) 1px, transparent 1px);
   background-size: 24px 24px;
 }
 
-html.light .glass-medical-card {
-  background: rgba(255, 255, 255, 0.94);
+.glass-medical-card {
+  background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(203, 213, 225, 0.85);
-  box-shadow: 0 10px 30px -5px rgba(15, 23, 42, 0.05), 0 0 0 1px rgba(226, 232, 240, 0.8);
+  border: 1px solid rgba(203, 213, 225, 0.9);
+  box-shadow: 0 10px 30px -5px rgba(15, 23, 42, 0.06), 0 0 0 1px rgba(226, 232, 240, 0.8);
   color: #0F172A;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-html.light .glass-medical-card:hover {
+.glass-medical-card:hover {
   background: rgba(255, 255, 255, 0.99);
   border-color: rgba(233, 41, 50, 0.45);
   box-shadow: 0 20px 45px -10px rgba(15, 23, 42, 0.12), 0 0 25px rgba(233, 41, 50, 0.14);
+}
+
+.dark-glass-card {
+  background: rgba(6, 25, 46, 0.88);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow: 0 10px 35px -5px rgba(0, 0, 0, 0.35);
+  color: #F8FAFC;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.dark-glass-card:hover {
+  background: rgba(10, 34, 60, 0.95);
+  border-color: rgba(233, 41, 50, 0.5);
+  box-shadow: 0 20px 45px -10px rgba(0, 0, 0, 0.45), 0 0 25px rgba(233, 41, 50, 0.2);
 }
 
 .btn-glow-red {
@@ -529,8 +609,65 @@ html.light .glass-medical-card:hover {
   transform-style: preserve-3d;
 }
 
+/* ECG Heartbeat & Pulse Keyframe Animations */
+@keyframes ecgPulseFlow {
+  0% {
+    stroke-dashoffset: 1400;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+.animate-ecg-draw {
+  stroke-dasharray: 1400;
+  stroke-dashoffset: 1400;
+  animation: ecgPulseFlow 4s linear infinite;
+}
+
+@keyframes pulseDotGlow {
+  0%, 100% {
+    opacity: 0.4;
+    transform: scale(0.98);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+}
+
+.animate-pulse-subtle {
+  animation: pulseDotGlow 2.5s ease-in-out infinite;
+}
+
 /* Content Visibility Optimization for Smooth 60fps Scrolling */
 .cv-auto {
   content-visibility: auto;
   contain-intrinsic-size: 1px 700px;
+}
+
+/* Performance & Ultra-Smooth Rendering Engine Optimizations */
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+button, a, input, select, textarea {
+  touch-action: manipulation;
+}
+
+img, svg {
+  content-visibility: auto;
+}
+
+/* GPU Hardware Composite Layers for 60fps & 120fps Smooth Scrolling */
+.gpu-accelerated,
+.animate-ecg-draw,
+.animate-cardiac-beat,
+.glass-medical-card,
+.dark-glass-card,
+.reveal {
+  transform: translateZ(0);
+  will-change: transform;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
 }

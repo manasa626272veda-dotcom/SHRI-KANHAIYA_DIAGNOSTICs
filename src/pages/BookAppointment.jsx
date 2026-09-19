@@ -1,5 +1,5 @@
-import React, { useState, useMemo } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect, useMemo } from 'react';
+import { Link, useSearchParams, useLocation } from 'react-router-dom';
 import {
   Check,
   ChevronLeft,
@@ -19,6 +19,9 @@ import {
   MapPin,
   Clock,
   CircleCheck,
+  FlaskConical,
+  Heart,
+  Sun,
 } from 'lucide-react';
 import { CLINIC_INFO, SERVICES, TIME_SLOTS } from '../data/clinicData';
 import { DatePickerCalendar } from '../components/DatePickerCalendar';
@@ -40,6 +43,9 @@ const iconMap = {
   Radio,
   ClipboardCheck,
   ShieldPlus,
+  FlaskConical,
+  Heart,
+  Sun,
 };
 
 function StepProgress({ step }) {
@@ -142,7 +148,7 @@ const initialFormData = {
   fullName: '',
   email: '',
   phone: '',
-  dob: '',
+  age: '',
   gender: 'Male',
   address: '',
   reason: '',
@@ -153,6 +159,8 @@ const initialFormData = {
 export function BookAppointment() {
   const { addAppointment, bookedSlots, theme } = useAppState();
   const isLight = theme === 'light';
+  const [searchParams] = useSearchParams();
+  const location = useLocation();
 
   const [step, setStep] = useState(1);
   const [serviceId, setServiceId] = useState('');
@@ -164,6 +172,18 @@ export function BookAppointment() {
   const [errors, setErrors] = useState({});
   const [confirmedBooking, setConfirmedBooking] = useState(null);
 
+  useEffect(() => {
+    const param = searchParams.get('service') || searchParams.get('test') || location.state?.serviceId;
+    if (param) {
+      const match = SERVICES.find(
+        (s) => s.id === param || s.id.toLowerCase().includes(param.toLowerCase())
+      );
+      if (match) {
+        setServiceId(match.id);
+      }
+    }
+  }, [searchParams, location]);
+
   const selectedService = useMemo(
     () => SERVICES.find((s) => s.id === serviceId),
     [serviceId]
@@ -173,6 +193,17 @@ export function BookAppointment() {
     if (!selectedDate) return [];
     return bookedSlots(selectedDate);
   }, [selectedDate, bookedSlots]);
+
+  const availableSlots = useMemo(() => {
+    if (!selectedDate) return TIME_SLOTS;
+    const dayOfWeek = new Date(selectedDate + 'T00:00:00').getDay();
+    if (dayOfWeek === 0) {
+      // Sunday: 7:00 AM to 1:00 PM
+      const sundayEndIndex = TIME_SLOTS.indexOf("1:00 PM");
+      return sundayEndIndex !== -1 ? TIME_SLOTS.slice(0, sundayEndIndex + 1) : TIME_SLOTS;
+    }
+    return TIME_SLOTS;
+  }, [selectedDate]);
 
   const handleNext = () => {
     if (step === 4) {
@@ -188,7 +219,11 @@ export function BookAppointment() {
       } else if (!/^[+\d][\d\s-]{7,14}$/.test(form.phone.trim())) {
         errs.phone = 'Please enter a valid phone number.';
       }
-      if (!form.dob) errs.dob = 'Date of birth is required.';
+      if (!form.age.trim()) {
+        errs.age = 'Age is required.';
+      } else if (isNaN(form.age) || Number(form.age) <= 0 || Number(form.age) > 120) {
+        errs.age = 'Please enter a valid age (1–120).';
+      }
       if (!form.address.trim()) errs.address = 'Address is required.';
       if (!form.reason.trim()) errs.reason = 'Please tell us the reason for your visit.';
       if (!form.agree) errs.agree = 'Please accept the appointment policy.';
@@ -200,7 +235,7 @@ export function BookAppointment() {
         patientName: form.fullName.trim(),
         email: form.email.trim(),
         phone: form.phone.trim(),
-        dateOfBirth: form.dob,
+        age: form.age.trim(),
         gender: form.gender,
         address: form.address.trim(),
         reason: form.reason.trim(),
@@ -250,7 +285,7 @@ export function BookAppointment() {
           </div>
         )}
 
-        <div className="rounded-3xl glass-medical-card p-4.5 sm:p-8 lg:p-10 shadow-2xl">
+        <div className={`rounded-3xl ${isLight ? 'glass-medical-card' : 'dark-glass-card'} p-4.5 sm:p-8 lg:p-10 shadow-2xl`}>
           {/* STEP 1: CHOOSE SERVICE */}
           {step === 1 && (
             <div>
@@ -297,7 +332,7 @@ export function BookAppointment() {
                           {s.description}
                         </span>
                         <span className="block text-[11px] text-[#FF4148] mt-1.5 font-semibold">
-                          Duration: {s.duration}
+                          Duration: {s.duration || '30 mins'}
                         </span>
                       </div>
                       {isSelected && (
@@ -401,7 +436,7 @@ export function BookAppointment() {
                         Available Time Slots
                       </h3>
                       <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5">
-                        {TIME_SLOTS.map((slot) => {
+                        {availableSlots.map((slot) => {
                           const isTaken = unavailableSlots.includes(slot);
                           const isSelected = selectedTime === slot;
                           return (
@@ -485,15 +520,17 @@ export function BookAppointment() {
                   />
                 </FormInputGroup>
 
-                <FormInputGroup label="Date of Birth" icon={CalendarIcon} error={errors.dob}>
+                <FormInputGroup label="Age (Years)" icon={User} error={errors.age}>
                   <input
-                    type="date"
+                    type="number"
+                    min="1"
+                    max="120"
                     className={`${inputClass} pl-10 pr-3.5 ${
-                      errors.dob ? 'border-[#E92932]' : isLight ? 'border-slate-300' : 'border-white/20'
+                      errors.age ? 'border-[#E92932]' : isLight ? 'border-slate-300' : 'border-white/20'
                     }`}
-                    value={form.dob}
-                    max={new Date().toISOString().slice(0, 10)}
-                    onChange={(e) => setForm({ ...form, dob: e.target.value })}
+                    placeholder="e.g. 45"
+                    value={form.age}
+                    onChange={(e) => setForm({ ...form, age: e.target.value })}
                   />
                 </FormInputGroup>
 
@@ -643,7 +680,7 @@ export function BookAppointment() {
                   <div className="flex justify-between gap-4">
                     <dt className={isLight ? 'text-slate-500' : 'text-slate-400'}>Patient</dt>
                     <dd className={`font-semibold text-right ${isLight ? 'text-slate-900' : 'text-white'}`}>
-                      {confirmedBooking.patientName}
+                      {confirmedBooking.patientName} {confirmedBooking.age ? `(${confirmedBooking.age} Yrs, ${confirmedBooking.gender})` : ''}
                     </dd>
                   </div>
                   <div className={`flex justify-between gap-4 pt-3 border-t ${isLight ? 'border-slate-200' : 'border-white/10'}`}>

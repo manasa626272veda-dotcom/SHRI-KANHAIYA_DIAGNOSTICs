@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { MapPin, Phone, Mail, ArrowRight } from 'lucide-react';
-import { CLINIC_INFO } from '../data/clinicData';
+import { CLINIC_INFO, SOCIAL_LINKS } from '../data/clinicData';
 
 const navLinks = [
   { id: 'home', label: 'Home' },
@@ -63,76 +63,82 @@ export function Footer() {
             </p>
 
             {/* Real Social Brand SVG Logos */}
-            <div className="flex items-center gap-2.5 pt-2">
+            <div className="flex items-center gap-2.5 pt-2 flex-wrap">
+              {/* Facebook */}
               <a
-                href="https://facebook.com"
+                href={SOCIAL_LINKS.facebook}
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Facebook"
-                className="grid h-9 w-9 place-items-center rounded-full border border-white/15 bg-white/5 text-slate-300 hover:bg-[#E92932] hover:border-[#E92932] hover:text-white transition-all shadow-sm"
+                className="grid h-9 w-9 place-items-center rounded-full bg-[#1877F2] text-white shadow-md hover:scale-110 hover:shadow-lg hover:shadow-[#1877F2]/40 transition-all duration-300"
               >
                 <svg className="h-4 w-4 fill-current" viewBox="0 0 24 24">
                   <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C20.112 23.027 24 18.062 24 12.073z" />
                 </svg>
               </a>
 
+              {/* Instagram */}
               <a
-                href="https://x.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="X (Twitter)"
-                className="grid h-9 w-9 place-items-center rounded-full border border-white/15 bg-white/5 text-slate-300 hover:bg-[#E92932] hover:border-[#E92932] hover:text-white transition-all shadow-sm"
-              >
-                <svg className="h-3.5 w-3.5 fill-current" viewBox="0 0 24 24">
-                  <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-                </svg>
-              </a>
-
-              <a
-                href="https://instagram.com"
+                href={SOCIAL_LINKS.instagram}
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Instagram"
-                className="grid h-9 w-9 place-items-center rounded-full border border-white/15 bg-white/5 text-slate-300 hover:bg-[#E92932] hover:border-[#E92932] hover:text-white transition-all shadow-sm"
+                className="grid h-9 w-9 place-items-center rounded-full bg-gradient-to-tr from-[#f09433] via-[#dc2743] to-[#bc1888] text-white shadow-md hover:scale-110 hover:shadow-lg hover:shadow-[#dc2743]/40 transition-all duration-300"
               >
                 <svg className="h-4 w-4 fill-current" viewBox="0 0 24 24">
                   <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
                 </svg>
               </a>
 
+              {/* Threads */}
               <a
-                href="https://linkedin.com"
+                href={SOCIAL_LINKS.threads}
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label="LinkedIn"
-                className="grid h-9 w-9 place-items-center rounded-full border border-white/15 bg-white/5 text-slate-300 hover:bg-[#E92932] hover:border-[#E92932] hover:text-white transition-all shadow-sm"
+                aria-label="Threads"
+                className="grid h-9 w-9 place-items-center rounded-full bg-black border border-white/20 text-white shadow-md hover:scale-110 hover:shadow-lg hover:shadow-white/30 transition-all duration-300"
               >
                 <svg className="h-4 w-4 fill-current" viewBox="0 0 24 24">
-                  <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
+                  <path d="M12.186 24c-3.535 0-6.44-1.163-8.18-3.276-1.572-1.908-2.155-4.485-1.642-7.256.55-2.969 2.37-5.51 5.127-7.156 2.585-1.545 5.792-2.135 9.03-1.66 3.498.513 6.448 2.51 8.307 5.626 1.343 2.25 1.84 4.887 1.436 7.625-.472 3.208-2.26 5.894-5.034 7.564-2.583 1.556-5.748 2.05-8.914 1.393-.195-.04-.325-.23-.284-.426.04-.195.23-.325.426-.284 2.97.616 5.94.153 8.364-1.306 2.6-1.566 4.277-4.085 4.72-7.094.38-2.573-.086-5.047-1.347-7.16-1.745-2.925-4.512-4.798-7.794-5.28-3.04-.446-6.05.108-8.477 1.56C6.15 8.1 4.442 10.487 3.927 13.275c-.482 2.602.066 5.02 1.542 6.812 1.53 1.858 4.103 2.88 7.247 2.88 3.518 0 6.643-1.285 8.8-3.618.14-.15.378-.158.528-.018.15.14.158.378.018.528-2.28 2.467-5.584 3.824-9.31 3.824zm.447-16.71c-3.155 0-5.72 2.384-5.72 5.313 0 2.93 2.565 5.314 5.72 5.314 3.154 0 5.718-2.385 5.718-5.314 0-2.93-2.564-5.313-5.718-5.313zm0 9.876c-2.742 0-4.97-2.046-4.97-4.563 0-2.517 2.228-4.563 4.97-4.563 2.74 0 4.968 2.046 4.968 4.563 0 2.517-2.227 4.563-4.968 4.563z"/>
                 </svg>
               </a>
 
+              {/* X (Twitter) */}
               <a
-                href="https://youtube.com"
+                href={SOCIAL_LINKS.x}
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label="YouTube"
-                className="grid h-9 w-9 place-items-center rounded-full border border-white/15 bg-white/5 text-slate-300 hover:bg-[#E92932] hover:border-[#E92932] hover:text-white transition-all shadow-sm"
+                aria-label="X (Twitter)"
+                className="grid h-9 w-9 place-items-center rounded-full bg-black border border-white/20 text-white shadow-md hover:scale-110 hover:shadow-lg hover:shadow-white/30 transition-all duration-300"
               >
-                <svg className="h-4 w-4 fill-current" viewBox="0 0 24 24">
-                  <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+                <svg className="h-3.5 w-3.5 fill-current" viewBox="0 0 24 24">
+                  <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
                 </svg>
               </a>
 
+              {/* ResearchGate */}
               <a
-                href={`https://wa.me/${CLINIC_INFO.phoneTel.replace(/[^0-9]/g, '')}`}
+                href={SOCIAL_LINKS.researchGate}
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label="WhatsApp Chat"
-                className="grid h-9 w-9 place-items-center rounded-full bg-[#25d366] text-white shadow-md hover:scale-105 transition-transform"
+                aria-label="ResearchGate"
+                className="grid h-9 w-9 place-items-center rounded-full bg-[#00CCBB] text-white shadow-md hover:scale-110 hover:shadow-lg hover:shadow-[#00CCBB]/40 transition-all duration-300"
+              >
+                <svg className="h-4 w-4 fill-current" viewBox="0 0 24 24">
+                  <path d="M19.586 0c-.818 0-1.508.266-2.052.793-.54.526-.814 1.205-.814 2.022 0 .822.274 1.503.814 2.03.544.527 1.234.793 2.052.793.82 0 1.506-.266 2.046-.793.545-.527.818-1.208.818-2.03 0-.817-.273-1.496-.818-2.022C21.092.266 20.406 0 19.586 0zM1.77 8.35v15.65h4.634V8.35H1.77zm7.625 0v15.65h4.634v-8.42c0-1.896.425-3.328 1.272-4.296.847-.968 2.024-1.452 3.53-1.452 1.433 0 2.525.44 3.275 1.32.75.88 1.125 2.19 1.125 3.93v8.918h4.634v-9.688c0-3.003-.787-5.267-2.36-6.79-1.573-1.523-3.793-2.285-6.66-2.285-2.264 0-4.148.514-5.653 1.542V8.35H9.395z" />
+                </svg>
+              </a>
+
+              {/* WhatsApp */}
+              <a
+                href={SOCIAL_LINKS.whatsapp}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="WhatsApp"
+                className="grid h-9 w-9 place-items-center rounded-full bg-[#25D366] text-white shadow-md hover:scale-110 hover:shadow-lg hover:shadow-[#25D366]/40 transition-all duration-300"
               >
                 <svg className="h-4.5 w-4.5 fill-current" viewBox="0 0 24 24">
-                  <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z" />
+                  <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z" />
                 </svg>
               </a>
             </div>

@@ -13,18 +13,6 @@ const generateBookingId = () => {
   return `SKD-${day}${month}${year}-${rand}`;
 };
 
-const calculateAge = (dob) => {
-  if (!dob) return undefined;
-  const birth = new Date(dob);
-  if (isNaN(birth.getTime())) return undefined;
-  const today = new Date();
-  let age = today.getFullYear() - birth.getFullYear();
-  const monthDiff = today.getMonth() - birth.getMonth();
-  if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birth.getDate())) {
-    age--;
-  }
-  return age;
-};
 
 const parseDateTime = (dateStr, timeStr) => {
   if (!dateStr) return 0;
@@ -65,26 +53,17 @@ export function AppProvider({ children }) {
     return { patientName: null, doctorLoggedIn: false };
   });
 
-  const [theme, setTheme] = useState(() => {
-    const saved = localStorage.getItem('skd_theme');
-    if (saved === 'light' || saved === 'dark') return saved;
-    return 'dark';
-  });
+  const [theme, setTheme] = useState('light');
 
   useEffect(() => {
-    localStorage.setItem('skd_theme', theme);
+    localStorage.setItem('skd_theme', 'light');
     const root = document.documentElement;
-    if (theme === 'light') {
-      root.classList.add('light');
-      root.classList.remove('dark');
-    } else {
-      root.classList.add('dark');
-      root.classList.remove('light');
-    }
+    root.classList.add('light');
+    root.classList.remove('dark');
   }, [theme]);
 
   const toggleTheme = useCallback(() => {
-    setTheme((prev) => (prev === 'light' ? 'dark' : 'light'));
+    setTheme('light');
   }, []);
 
   useEffect(() => {
@@ -102,7 +81,7 @@ export function AppProvider({ children }) {
       patientName: data.patientName,
       email: data.email,
       phone: data.phone,
-      dateOfBirth: data.dateOfBirth,
+      age: data.age,
       gender: data.gender,
       address: data.address,
       service: data.service,
@@ -113,7 +92,6 @@ export function AppProvider({ children }) {
       notes: data.notes || "",
       status: "Confirmed",
       createdAt: new Date().toISOString(),
-      age: calculateAge(data.dateOfBirth),
     };
 
     setAppointments((prev) => [newBooking, ...prev]);

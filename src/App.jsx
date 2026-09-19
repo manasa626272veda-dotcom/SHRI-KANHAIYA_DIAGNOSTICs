@@ -8,6 +8,9 @@ import { Home } from './pages/Home';
 const BookAppointment = lazy(() =>
   import('./pages/BookAppointment').then((module) => ({ default: module.BookAppointment }))
 );
+const AboutPage = lazy(() =>
+  import('./pages/AboutPage').then((module) => ({ default: module.AboutPage }))
+);
 
 // Smooth Fallback Component
 function RouteFallback() {
@@ -26,6 +29,7 @@ export default function App() {
           <Routes>
             <Route element={<Layout />}>
               <Route path="/" element={<Home />} />
+              <Route path="/about" element={<AboutPage />} />
               <Route path="/book-appointment" element={<BookAppointment />} />
             </Route>
             <Route path="*" element={<Navigate to="/" replace />} />

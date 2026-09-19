@@ -25,7 +25,7 @@ export async function sendAppointmentToGoogleSheet(appointment) {
     patientName: appointment.patientName || '',
     email: appointment.email || '',
     phone: appointment.phone ? `'${appointment.phone}` : '',
-    dateOfBirth: appointment.dateOfBirth || '',
+    age: appointment.age || '',
     gender: appointment.gender || '',
     address: appointment.address || '',
     service: appointment.service || '',
