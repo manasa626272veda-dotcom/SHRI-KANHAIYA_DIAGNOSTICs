@@ -110,7 +110,7 @@ function useCounter(target, duration = 1800) {
 
 // ─── Image & Asset URLs ────────────────────────────────────────────────────────
 const IMGS = {
-  doctorHero: "/dr-sree-ranga-hero-laptop.jpg",
+  doctorHero: "/dr-sree-ranga-hero-transparent.png",
   doctorAbout: "/dr-sree-ranga-pc-about.jpg",
   aiPreventive: "/ai-preventive-cardiology.jpg",
   aiDiagnostics: "/ai-cardiac-diagnostics.jpg",
@@ -178,14 +178,15 @@ function Hero() {
     <section id="home" className="relative min-h-[640px] sm:min-h-[720px] lg:min-h-[820px] flex items-center justify-center overflow-hidden pt-24 sm:pt-28 lg:pt-32 pb-24 sm:pb-20 lg:pb-16 transition-colors duration-300 bg-gradient-to-r from-[#F0F7FE] via-[#FFFFFF] to-[#E6F2FD]">
       {/* Background Decorative Atmosphere & Glows - Right side 3D Heart Image */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden z-0">
-        {/* Right Side Background Image - 3D Heart (Subtle on mobile, crisp on desktop) */}
-        <div className="absolute top-1/2 -right-8 sm:right-2 lg:right-10 xl:right-16 -translate-y-1/2 w-[220px] sm:w-[380px] lg:w-[490px] xl:w-[560px] h-auto pointer-events-none z-0 select-none opacity-25 sm:opacity-75 lg:opacity-90 animate-cardiac-beat">
+        {/* Right Side Background Image - 3D Heart (Shifted left, static without animation) */}
+        <div className="absolute top-1/2 right-4 sm:right-12 lg:right-28 xl:right-40 -translate-y-1/2 w-[220px] sm:w-[360px] lg:w-[460px] xl:w-[520px] h-auto pointer-events-none z-0 select-none opacity-30 sm:opacity-80 lg:opacity-90">
           <img
             src="/hero-3d-heart.png"
             alt=""
             className="w-full h-full object-contain"
             style={{
               filter: 'drop-shadow(0 15px 30px rgba(229,35,35,0.16))',
+              imageRendering: 'high-quality',
             }}
           />
         </div>
@@ -224,21 +225,26 @@ function Hero() {
               </div>
             </div>
 
-            {/* Doctor Portrait Container - Styled with subtle rounded frame & glass backdrop */}
-            <div className="animate-float-slow relative w-full max-w-[320px] sm:max-w-[390px] lg:max-w-[450px] aspect-[4/5] rounded-3xl sm:rounded-[36px] overflow-hidden shadow-2xl border-4 border-white/80 bg-gradient-to-b from-white/90 to-blue-50/50 mb-6 lg:mb-0 group">
-              <div className="absolute inset-[-15%] rounded-full blur-3xl -z-10 bg-[#FFFFFF]/90" />
+            {/* Doctor Transparent Portrait - Seamlessly blended with background */}
+            <div className="animate-float-slow relative w-full max-w-[320px] sm:max-w-[400px] lg:max-w-[480px] h-[340px] sm:h-[440px] lg:h-[550px] flex items-end justify-center mb-6 lg:mb-0 select-none">
+              {/* Soft Ambient Radial Glow Behind Doctor */}
+              <div className="absolute inset-x-[-10%] bottom-0 top-1/4 rounded-full blur-3xl -z-10 bg-gradient-to-t from-white/90 via-[#BAE6FD]/40 to-transparent pointer-events-none" />
 
               <img
                 src={IMGS.doctorHero}
                 alt="Dr. Sree Ranga P.C. - Professor of Cardiology (BMCRI) & Consultant Cardiologist"
-                className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
+                className="w-full h-full object-contain object-bottom transition-transform duration-700 hover:scale-[1.02] drop-shadow-xl"
                 style={{
                   imageRendering: 'high-quality',
+                  WebkitMaskImage:
+                    'linear-gradient(to bottom, black 82%, rgba(0,0,0,0.85) 92%, transparent 100%)',
+                  maskImage:
+                    'linear-gradient(to bottom, black 82%, rgba(0,0,0,0.85) 92%, transparent 100%)',
                 }}
               />
 
               {/* Doctor Info Pill Floating Subtly Over Composition */}
-              <div className="absolute bottom-2.5 left-2.5 right-2.5 sm:bottom-3.5 sm:left-3.5 sm:right-3.5 backdrop-blur-md px-3.5 sm:px-4 py-2.5 rounded-xl sm:rounded-2xl shadow-lg border border-white/80 bg-white/92 text-[#0E2F56] flex items-center justify-between z-20 transition-transform duration-300">
+              <div className="absolute bottom-2 left-2 right-2 sm:bottom-3 sm:left-4 sm:right-4 backdrop-blur-md px-3.5 py-2.5 rounded-xl sm:rounded-2xl shadow-lg border border-white/80 bg-white/92 text-[#0E2F56] flex items-center justify-between z-20 transition-transform duration-300 hover:scale-[1.02]">
                 <div>
                   <div className="flex items-center gap-1.5 text-[11px] sm:text-xs font-bold">
                     <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse-dot inline-block" />
