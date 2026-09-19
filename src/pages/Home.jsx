@@ -210,29 +210,36 @@ function Hero() {
         {/* Main Banner Grid - Doctor on Left, Content & Interactive elements on Right */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-6 lg:gap-8 items-center">
 
-          {/* LEFT COLUMN: Doctor Photograph with Curved Boundary */}
+          {/* LEFT COLUMN: Doctor Photograph with Merged Boundary */}
           <div className="lg:col-span-5 relative flex flex-col items-center lg:items-start justify-end animate-[fadeSlideUp_0.8s_ease-out_both]">
 
-            {/* Handwritten Script Badge - Positioned on Upper Left like Reference */}
-            <div className="absolute top-12 -left-2 sm:-left-4 lg:-left-6 z-30 pointer-events-none select-none -rotate-6">
-              <div className="inline-block bg-white/70 backdrop-blur-xs px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-2xl shadow-xs border border-white/60">
-                <span className="font-cursive text-xl sm:text-2xl lg:text-3xl text-[#0E2F56] font-bold tracking-wide leading-tight block">
-                  Caring<br />for every<br />heartbeat
+            {/* Handwritten Script Badge - Positioned on Right Side */}
+            <div className="absolute top-4 -right-2 sm:-right-6 lg:-right-8 z-30 pointer-events-none select-none rotate-2">
+              <div className="inline-block bg-white/85 backdrop-blur-md px-3 sm:px-3.5 py-1.5 rounded-2xl shadow-sm border border-white/80">
+                <span className="font-cursive text-xl sm:text-2xl lg:text-3xl text-[#1E3A8A] font-bold tracking-wide leading-tight block">
+                  Caring for every heartbeat
                 </span>
-                <svg className="w-16 sm:w-20 h-2 mt-0.5" viewBox="0 0 160 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M2 9C45 3 115 2 158 9" stroke="#E52323" strokeWidth="3.4" strokeLinecap="round" />
+                <svg className="w-24 sm:w-28 h-2 mt-0.5" viewBox="0 0 160 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M2 9C45 3 115 2 158 9" stroke="#E52323" strokeWidth="3.2" strokeLinecap="round" />
                 </svg>
               </div>
             </div>
 
-            {/* Doctor Portrait Container with Right-Side Curved Arc */}
-            <div className="relative w-full max-w-[320px] sm:max-w-[400px] lg:max-w-[470px] aspect-[4/5] rounded-[32px] sm:rounded-[44px] lg:rounded-tr-[160px] lg:rounded-br-[220px] lg:rounded-l-[36px] overflow-hidden shadow-2xl border-2 border-white/90 bg-white mb-6 lg:mb-0 group">
+            {/* Doctor Portrait Container - Seamlessly Merged with Hero Section Background */}
+            <div className="relative w-full max-w-[340px] sm:max-w-[420px] lg:max-w-[490px] aspect-[4/5] overflow-hidden mb-6 lg:mb-0 group select-none">
+              {/* Soft Ambient Radial Backlight */}
+              <div className="absolute inset-0 rounded-full blur-3xl -z-10 bg-gradient-to-tr from-white/90 via-[#BAE6FD]/40 to-transparent pointer-events-none" />
+
               <img
                 src={IMGS.doctorHero}
                 alt="Dr. Sree Ranga P.C. - Professor of Cardiology (BMCRI) & Consultant Cardiologist"
                 className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
                 style={{
                   imageRendering: 'high-quality',
+                  WebkitMaskImage:
+                    'radial-gradient(ellipse 92% 90% at 48% 50%, black 60%, rgba(0,0,0,0.85) 78%, rgba(0,0,0,0.3) 92%, transparent 100%)',
+                  maskImage:
+                    'radial-gradient(ellipse 92% 90% at 48% 50%, black 60%, rgba(0,0,0,0.85) 78%, rgba(0,0,0,0.3) 92%, transparent 100%)',
                 }}
               />
             </div>
