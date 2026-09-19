@@ -110,7 +110,7 @@ function useCounter(target, duration = 1800) {
 
 // ─── Image & Asset URLs ────────────────────────────────────────────────────────
 const IMGS = {
-  doctorHero: "/dr-sree-ranga-hero-transparent.png",
+  doctorHero: "/dr-sree-ranga-hero-laptop.jpg",
   doctorAbout: "/dr-sree-ranga-pc-about.jpg",
   aiPreventive: "/ai-preventive-cardiology.jpg",
   aiDiagnostics: "/ai-cardiac-diagnostics.jpg",
@@ -210,54 +210,31 @@ function Hero() {
         {/* Main Banner Grid - Doctor on Left, Content & Interactive elements on Right */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-6 lg:gap-8 items-center">
 
-          {/* LEFT COLUMN: Doctor Photograph */}
+          {/* LEFT COLUMN: Doctor Photograph with Curved Boundary */}
           <div className="lg:col-span-5 relative flex flex-col items-center lg:items-start justify-end animate-[fadeSlideUp_0.8s_ease-out_both]">
 
-            {/* Handwritten Script Badge with Animated Underline */}
-            <div className="mb-2 self-center lg:self-start z-20">
-              <div className="relative inline-block group">
-                <span className="font-cursive text-2xl sm:text-3xl lg:text-4xl text-[#1E3A8A] font-bold tracking-wide leading-none select-none">
-                  Caring for every heartbeat
+            {/* Handwritten Script Badge - Positioned on Upper Left like Reference */}
+            <div className="absolute top-12 -left-2 sm:-left-4 lg:-left-6 z-30 pointer-events-none select-none -rotate-6">
+              <div className="inline-block bg-white/70 backdrop-blur-xs px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-2xl shadow-xs border border-white/60">
+                <span className="font-cursive text-xl sm:text-2xl lg:text-3xl text-[#0E2F56] font-bold tracking-wide leading-tight block">
+                  Caring<br />for every<br />heartbeat
                 </span>
-                <svg className="w-full h-2.5 sm:h-3 mt-0.5" viewBox="0 0 160 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M2 9C45 3 115 2 158 9" stroke="#E52323" strokeWidth="2.8" strokeLinecap="round" className="animate-ecg-draw" />
+                <svg className="w-16 sm:w-20 h-2 mt-0.5" viewBox="0 0 160 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M2 9C45 3 115 2 158 9" stroke="#E52323" strokeWidth="3.4" strokeLinecap="round" />
                 </svg>
               </div>
             </div>
 
-            {/* Doctor Transparent Portrait - Seamlessly blended with background */}
-            <div className="animate-float-slow relative w-full max-w-[320px] sm:max-w-[400px] lg:max-w-[480px] h-[340px] sm:h-[440px] lg:h-[550px] flex items-end justify-center mb-6 lg:mb-0 select-none">
-              {/* Soft Ambient Radial Glow Behind Doctor */}
-              <div className="absolute inset-x-[-10%] bottom-0 top-1/4 rounded-full blur-3xl -z-10 bg-gradient-to-t from-white/90 via-[#BAE6FD]/40 to-transparent pointer-events-none" />
-
+            {/* Doctor Portrait Container with Right-Side Curved Arc */}
+            <div className="relative w-full max-w-[320px] sm:max-w-[400px] lg:max-w-[470px] aspect-[4/5] rounded-[32px] sm:rounded-[44px] lg:rounded-tr-[160px] lg:rounded-br-[220px] lg:rounded-l-[36px] overflow-hidden shadow-2xl border-2 border-white/90 bg-white mb-6 lg:mb-0 group">
               <img
                 src={IMGS.doctorHero}
                 alt="Dr. Sree Ranga P.C. - Professor of Cardiology (BMCRI) & Consultant Cardiologist"
-                className="w-full h-full object-contain object-bottom transition-transform duration-700 hover:scale-[1.02] drop-shadow-xl"
+                className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
                 style={{
                   imageRendering: 'high-quality',
-                  WebkitMaskImage:
-                    'linear-gradient(to bottom, black 82%, rgba(0,0,0,0.85) 92%, transparent 100%)',
-                  maskImage:
-                    'linear-gradient(to bottom, black 82%, rgba(0,0,0,0.85) 92%, transparent 100%)',
                 }}
               />
-
-              {/* Doctor Info Pill Floating Subtly Over Composition */}
-              <div className="absolute bottom-2 left-2 right-2 sm:bottom-3 sm:left-4 sm:right-4 backdrop-blur-md px-3.5 py-2.5 rounded-xl sm:rounded-2xl shadow-lg border border-white/80 bg-white/92 text-[#0E2F56] flex items-center justify-between z-20 transition-transform duration-300 hover:scale-[1.02]">
-                <div>
-                  <div className="flex items-center gap-1.5 text-[11px] sm:text-xs font-bold">
-                    <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse-dot inline-block" />
-                    Dr. Sree Ranga P.C.
-                  </div>
-                  <div className="text-[9.5px] sm:text-[10px] font-semibold text-slate-500">
-                    Professor (BMCRI) & Cardiologist
-                  </div>
-                </div>
-                <div className="flex items-center gap-1 bg-amber-50 px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-lg border border-amber-200/50 shadow-2xs">
-                  <span className="text-[11px] sm:text-xs font-bold text-amber-700">4.9 ★</span>
-                </div>
-              </div>
             </div>
 
           </div>
