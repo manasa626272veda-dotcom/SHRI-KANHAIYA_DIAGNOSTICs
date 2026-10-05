@@ -13,7 +13,7 @@ const navLinks = [
   { id: 'our-story', label: 'Our Story & Video Tour' },
   { id: 'faq', label: 'Frequently Asked Questions' },
   { id: 'contact', label: 'Contact & Location' },
-  { path: '/book-appointment', label: 'Book Appointment', isRoute: true },
+  { path: '/book-appointment', label: 'Contact Us', isRoute: true },
 ];
 
 const serviceLinks = [
@@ -235,7 +235,7 @@ export function Footer() {
                 to="/book-appointment"
                 className="inline-flex items-center gap-2 rounded-full bg-[#E92932] px-6 py-2.5 text-sm font-semibold text-white shadow-[0_0_20px_rgba(233,41,50,0.5)] transition-all hover:scale-105"
               >
-                Book Appointment <ArrowRight className="h-4 w-4" />
+                Contact Us <ArrowRight className="h-4 w-4" />
               </Link>
             </div>
           </div>

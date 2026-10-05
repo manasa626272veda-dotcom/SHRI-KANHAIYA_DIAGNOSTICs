@@ -291,54 +291,88 @@ function Hero() {
               </span>
             </div>
 
-            {/* 4 Feature Badges Grid */}
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3 pt-0.5">
-              {/* Feature 1 */}
-              <div className="flex flex-col items-center text-center group p-2 sm:p-2.5 rounded-xl sm:rounded-2xl border border-slate-100 bg-white/80 shadow-2xs hover:shadow-md hover:border-red-200 transition-all duration-300 hover:-translate-y-1 cursor-default animate-[fadeSlideUp_0.6s_ease-out_0.4s_both]">
-                <div className="w-9 h-9 sm:w-11 sm:h-11 rounded-full bg-[#FFEBEB] border border-[#FFCDCD] flex items-center justify-center text-[#E52323] mb-1.5 sm:mb-2 group-hover:scale-110 transition-transform">
-                  <svg className="w-4.5 h-4.5 sm:w-5 sm:h-5 animate-cardiac-beat" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.684a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 12h2l1-2 1.5 4 1-2h1.5" />
-                  </svg>
+            {/* 4 Interventions Cards Grid */}
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3 pt-1">
+              {/* Card 1: Coronary Interventions */}
+              <div className="flex flex-col items-center text-center group p-1.5 sm:p-2 rounded-2xl border border-slate-200/90 bg-white/95 shadow-2xs hover:shadow-md hover:border-red-300 transition-all duration-300 hover:-translate-y-1 cursor-default animate-[fadeSlideUp_0.6s_ease-out_0.4s_both]">
+                <div className="relative w-full aspect-[4/3] rounded-xl overflow-hidden mb-1.5 bg-slate-900">
+                  <img
+                    src="/first.png"
+                    alt="Coronary Interventions"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                  <div className="absolute top-1 sm:top-1.5 left-1 sm:left-1.5 w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-[#0E2F56]/85 backdrop-blur-xs border border-white/60 flex items-center justify-center text-white shadow-xs">
+                    <svg viewBox="0 0 24 24" className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-white" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
+                      <path d="M3.22 12H7l1.5-3 2.5 6 2-4 1 1h6.78" />
+                    </svg>
+                  </div>
                 </div>
-                <span className="text-[10px] sm:text-xs font-bold leading-tight text-[#0E2F56]">
-                  Chest Pain<br />Evaluation
+                <span className="text-[10.5px] sm:text-xs font-bold leading-tight text-[#0E2F56] pb-0.5">
+                  Coronary<br />Interventions
                 </span>
               </div>
 
-              {/* Feature 2 */}
-              <div className="flex flex-col items-center text-center group p-2 sm:p-2.5 rounded-xl sm:rounded-2xl border border-slate-100 bg-white/80 shadow-2xs hover:shadow-md hover:border-sky-200 transition-all duration-300 hover:-translate-y-1 cursor-default animate-[fadeSlideUp_0.6s_ease-out_0.5s_both]">
-                <div className="w-9 h-9 sm:w-11 sm:h-11 rounded-full bg-[#EBF5FF] border border-[#BAE6FD] flex items-center justify-center text-[#0284C7] mb-1.5 sm:mb-2 group-hover:scale-110 transition-transform">
-                  <svg className="w-4.5 h-4.5 sm:w-5 sm:h-5 animate-pulse" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
-                  </svg>
+              {/* Card 2: Valvular Interventions */}
+              <div className="flex flex-col items-center text-center group p-1.5 sm:p-2 rounded-2xl border border-slate-200/90 bg-white/95 shadow-2xs hover:shadow-md hover:border-sky-300 transition-all duration-300 hover:-translate-y-1 cursor-default animate-[fadeSlideUp_0.6s_ease-out_0.5s_both]">
+                <div className="relative w-full aspect-[4/3] rounded-xl overflow-hidden mb-1.5 bg-slate-900">
+                  <img
+                    src="/second.png"
+                    alt="Valvular Interventions"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                  <div className="absolute top-1 sm:top-1.5 left-1 sm:left-1.5 w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-[#0E2F56]/85 backdrop-blur-xs border border-white/60 flex items-center justify-center text-white shadow-xs">
+                    <svg viewBox="0 0 24 24" className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-white" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M12 3c-2.5 0-4.5 2-4.5 4.5 0 3 4.5 7.5 4.5 7.5s4.5-4.5 4.5-7.5C16.5 5 14.5 3 12 3z" />
+                      <path d="M6 18c2 2 4 3 6 3s4-1 6-3" />
+                      <path d="M8 15h8" />
+                    </svg>
+                  </div>
                 </div>
-                <span className="text-[10px] sm:text-xs font-bold leading-tight text-[#0E2F56]">
-                  ECG & Cardiac<br />Diagnostics
+                <span className="text-[10.5px] sm:text-xs font-bold leading-tight text-[#0E2F56] pb-0.5">
+                  Valvular<br />Interventions
                 </span>
               </div>
 
-              {/* Feature 3 */}
-              <div className="flex flex-col items-center text-center group p-2 sm:p-2.5 rounded-xl sm:rounded-2xl border border-slate-100 bg-white/80 shadow-2xs hover:shadow-md hover:border-emerald-200 transition-all duration-300 hover:-translate-y-1 cursor-default animate-[fadeSlideUp_0.6s_ease-out_0.6s_both]">
-                <div className="w-9 h-9 sm:w-11 sm:h-11 rounded-full bg-[#E6F4EA] border border-[#BBF7D0] flex items-center justify-center text-[#16A34A] mb-1.5 sm:mb-2 group-hover:scale-110 transition-transform">
-                  <svg className="w-4.5 h-4.5 sm:w-5 sm:h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-                  </svg>
+              {/* Card 3: Rhythm Management */}
+              <div className="flex flex-col items-center text-center group p-1.5 sm:p-2 rounded-2xl border border-slate-200/90 bg-white/95 shadow-2xs hover:shadow-md hover:border-cyan-300 transition-all duration-300 hover:-translate-y-1 cursor-default animate-[fadeSlideUp_0.6s_ease-out_0.6s_both]">
+                <div className="relative w-full aspect-[4/3] rounded-xl overflow-hidden mb-1.5 bg-slate-900">
+                  <img
+                    src="/third.png"
+                    alt="Rhythm Management"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                  <div className="absolute top-1 sm:top-1.5 left-1 sm:left-1.5 w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-[#0E2F56]/85 backdrop-blur-xs border border-white/60 flex items-center justify-center text-white shadow-xs">
+                    <svg viewBox="0 0 24 24" className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-white" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M2 12h4l2-6 3 13 3-9 2 4 2-2h4" />
+                    </svg>
+                  </div>
                 </div>
-                <span className="text-[10px] sm:text-xs font-bold leading-tight text-[#0E2F56]">
-                  Preventive<br />Cardiology
+                <span className="text-[10.5px] sm:text-xs font-bold leading-tight text-[#0E2F56] pb-0.5">
+                  Rhythm<br />Management
                 </span>
               </div>
 
-              {/* Feature 4 */}
-              <div className="flex flex-col items-center text-center group p-2 sm:p-2.5 rounded-xl sm:rounded-2xl border border-slate-100 bg-white/80 shadow-2xs hover:shadow-md hover:border-amber-200 transition-all duration-300 hover:-translate-y-1 cursor-default animate-[fadeSlideUp_0.6s_ease-out_0.7s_both]">
-                <div className="w-9 h-9 sm:w-11 sm:h-11 rounded-full bg-[#FFF5E5] border border-[#FDE68A] flex items-center justify-center text-[#D97706] mb-1.5 sm:mb-2 group-hover:scale-110 transition-transform">
-                  <svg className="w-4.5 h-4.5 sm:w-5 sm:h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-                  </svg>
+              {/* Card 4: Peripheral & Other Interventions */}
+              <div className="flex flex-col items-center text-center group p-1.5 sm:p-2 rounded-2xl border border-slate-200/90 bg-white/95 shadow-2xs hover:shadow-md hover:border-indigo-300 transition-all duration-300 hover:-translate-y-1 cursor-default animate-[fadeSlideUp_0.6s_ease-out_0.7s_both]">
+                <div className="relative w-full aspect-[4/3] rounded-xl overflow-hidden mb-1.5 bg-slate-900">
+                  <img
+                    src="/fourth.png"
+                    alt="Peripheral & Other Interventions"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                  <div className="absolute top-1 sm:top-1.5 left-1 sm:left-1.5 w-6 h-6 sm:w-7 sm:h-7 rounded-full bg-[#0E2F56]/85 backdrop-blur-xs border border-white/60 flex items-center justify-center text-white shadow-xs">
+                    <svg viewBox="0 0 24 24" className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-white" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <line x1="12" y1="3" x2="12" y2="21" />
+                      <line x1="12" y1="8" x2="6" y2="14" />
+                      <line x1="12" y1="8" x2="18" y2="14" />
+                      <line x1="12" y1="13" x2="5" y2="20" />
+                      <line x1="12" y1="13" x2="19" y2="20" />
+                    </svg>
+                  </div>
                 </div>
-                <span className="text-[10px] sm:text-xs font-bold leading-tight text-[#0E2F56]">
-                  Personalized<br />Consultation
+                <span className="text-[10.5px] sm:text-xs font-bold leading-tight text-[#0E2F56] pb-0.5">
+                  Peripheral &<br />Other Interventions
                 </span>
               </div>
             </div>
@@ -346,7 +380,7 @@ function Hero() {
             {/* Action Buttons */}
             <div className="pt-1.5 flex flex-col sm:flex-row items-stretch sm:items-center justify-center lg:justify-start gap-2.5 sm:gap-3 w-full animate-[fadeSlideUp_0.7s_ease-out_0.8s_both]">
               <Link to="/book-appointment" className="group animate-button-glow inline-flex items-center justify-center gap-2.5 bg-[#E52323] hover:bg-[#D01A1A] text-white px-6 sm:px-7 py-3 sm:py-3.5 rounded-full text-xs sm:text-sm font-bold shadow-lg shadow-red-500/25 transition-all duration-300 hover:scale-105 active:scale-95 cursor-pointer w-full sm:w-auto">
-                Book an Appointment
+                Contact Us
                 <ArrowRight size={15} className="group-hover:translate-x-1.5 transition-transform" />
               </Link>
 
@@ -580,11 +614,11 @@ function StatsSection() {
                   <circle cx="33" cy="36" r="3" />
                 </svg>
               </div>
-              <div className="text-3xl sm:text-4xl font-black tracking-tight text-[#E92932] leading-none mb-1 group-hover:scale-105 transition-transform duration-300">
-                BMCRI
-              </div>
-              <div className={`text-base font-bold ${isLight ? 'text-slate-800' : 'text-slate-200'}`}>
+              <div className="text-2xl sm:text-3xl font-black tracking-tight text-[#E92932] leading-none mb-1 group-hover:scale-105 transition-transform duration-300">
                 Professor
+              </div>
+              <div className={`text-xs sm:text-sm font-bold leading-snug px-1 ${isLight ? 'text-slate-800' : 'text-slate-200'}`}>
+                Sri Jayadeva Institute \ BMCRI
               </div>
               <div className="w-7 h-1 rounded-full bg-[#E92932] mt-3 group-hover:w-14 transition-all duration-300 shadow-sm" />
             </div>
@@ -800,8 +834,8 @@ function About() {
                   <GraduationCap size={14} />
                   <span className="text-xs font-black tracking-tight">Professor</span>
                 </div>
-                <div className="text-[10px] font-bold text-slate-500 dark:text-slate-400 leading-tight">
-                  @ BMCRI
+                <div className="text-[9.5px] sm:text-[10px] font-bold text-slate-500 dark:text-slate-400 leading-tight">
+                  Sri Jayadeva Institute \ BMCRI
                 </div>
               </div>
 
@@ -831,23 +865,49 @@ function About() {
               </span>
             </div>
 
-            {/* Main Title */}
-            <h2 className={`text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight leading-[1.18] ${isLight ? 'text-[#0E2F56]' : 'text-white'
-              }`}>
-              Pioneering Heart Care with <span className="text-[#E92932]">Precision, Compassion & Academic Excellence</span>
-            </h2>
+            {/* Doctor Credentials & Subtitle */}
+            <div className="space-y-1.5">
+              <h2 className={`text-2xl sm:text-3xl lg:text-4xl font-extrabold tracking-tight leading-[1.18] ${isLight ? 'text-[#0E2F56]' : 'text-white'
+                }`}>
+                Dr. Sree Ranga P.C.
+              </h2>
+              <p className="text-sm sm:text-base font-bold text-[#E92932]">
+                Senior Interventional Cardiologist & Professor of Cardiology
+              </p>
+              <p className={`text-xs sm:text-sm font-semibold ${isLight ? 'text-slate-700' : 'text-slate-300'}`}>
+                Bangalore Medical College & Research Institute (BMCRI)
+              </p>
+              <div className="pt-0.5">
+                <span className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs sm:text-sm font-medium border shadow-2xs ${
+                  isLight
+                    ? 'bg-amber-50 text-amber-950 border-amber-200/90'
+                    : 'bg-amber-950/40 text-amber-200 border-amber-700/50'
+                }`}>
+                  <Building2 size={14} className="text-amber-600 shrink-0" />
+                  <span>
+                    Formerly associated with <strong className="font-bold underline decoration-amber-400 decoration-2 underline-offset-2">Sri Jayadeva Institute of Cardiovascular Sciences & Research</strong>
+                  </span>
+                </span>
+              </div>
+              <div className="pt-1">
+                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-red-50 text-[#E92932] border border-red-200/80">
+                  <HeartPulse size={13} className="animate-cardiac-beat" />
+                  Dedicated to Excellence in Comprehensive Heart Care
+                </span>
+              </div>
+            </div>
 
             {/* Paragraphs with Refined Text Styling */}
             <div className={`space-y-3.5 text-sm sm:text-base leading-relaxed font-normal ${isLight ? 'text-slate-600' : 'text-slate-300'
               }`}>
               <p>
-                <strong className={isLight ? 'text-[#0E2F56]' : 'text-white'}>Shri Kanhaiya Chest Pain Clinic & Diagnostics</strong> was founded by <strong className={isLight ? 'text-[#0E2F56]' : 'text-white'}>Dr. Sree Ranga P.C.</strong>, Professor of Cardiology at the prestigious Bangalore Medical College and Research Institute (BMCRI). With nearly two decades of clinical and interventional practice, our center represents the pinnacle of patient-centered cardiac management in Bengaluru.
+                <strong className={isLight ? 'text-[#0E2F56]' : 'text-white'}>Dr. Sree Ranga P.C.</strong> is a Senior Interventional Cardiologist and Professor of Cardiology with extensive academic, clinical and procedural expertise spanning complex coronary interventions, structural and valvular heart disease, cardiac rhythm management and peripheral vascular interventions.
               </p>
               <p>
-                Dr. Sree Ranga P.C. has performed over <strong className={isLight ? 'text-[#0E2F56]' : 'text-white'}>20,000 cardiac and vascular procedures</strong>, including 5,000+ complex angioplasties (PCI), primary PCI in acute heart attacks, pacemaker implantations, and advanced structural interventions. As a dedicated academic educator, he trains the next generation of cardiologists while delivering world-class evidence-based treatment to patients.
+                Over a distinguished career in cardiovascular medicine, he has personally performed more than <strong className={isLight ? 'text-[#0E2F56]' : 'text-white'}>20,000 diagnostic and interventional cardiac and vascular procedures</strong>. In the past two years alone, he has performed <strong className={isLight ? 'text-[#0E2F56]' : 'text-white'}>more than 2,000 cardiovascular procedures</strong>, reflecting his continuing high-volume experience in advanced interventional cardiology.
               </p>
               <p>
-                Our clinic combines immediate diagnostic evaluation—ECG, Echo, Treadmill Testing (TMT), Holter Monitoring, and Comprehensive Blood Diagnostics—with personalized care plans designed for early risk detection, chest pain triage, and long-term cardiovascular health.
+                His practice combines procedural expertise, modern technology and evidence-based clinical decision-making with a strong commitment to individualized, patient-centred care.
               </p>
             </div>
 
@@ -978,7 +1038,7 @@ function ServicesSection() {
                       to="/book-appointment"
                       className="inline-flex items-center gap-1.5 text-xs sm:text-sm font-bold text-[#E92932] hover:text-[#FF4148] transition-colors group-hover:gap-2.5 duration-300"
                     >
-                      <span>{s.ctaText || "Book Consultation"}</span>
+                      <span>{s.ctaText || "Contact Us"}</span>
                       <ArrowRight size={14} />
                     </Link>
                   </div>
@@ -1149,7 +1209,7 @@ function ServicesSection() {
                   </div>
                   <div className="mt-6 pt-2">
                     <Link to="/book-appointment?service=chest-xray-diagnostics" className="inline-flex items-center gap-1.5 text-xs font-extrabold text-[#E92932] group-hover:text-[#FF4148] group-hover:gap-2.5 transition-all">
-                      <span>Book Test →</span>
+                      <span>Contact Us →</span>
                     </Link>
                   </div>
                 </div>
@@ -1173,7 +1233,7 @@ function ServicesSection() {
                   </div>
                   <div className="mt-6 pt-2">
                     <Link to="/book-appointment?service=ecg-diagnostics" className="inline-flex items-center gap-1.5 text-xs font-extrabold text-[#E92932] group-hover:text-[#FF4148] group-hover:gap-2.5 transition-all">
-                      <span>Book Test →</span>
+                      <span>Contact Us →</span>
                     </Link>
                   </div>
                 </div>
@@ -1197,7 +1257,7 @@ function ServicesSection() {
                   </div>
                   <div className="mt-6 pt-2">
                     <Link to="/book-appointment?service=echo-diagnostics" className="inline-flex items-center gap-1.5 text-xs font-extrabold text-[#E92932] group-hover:text-[#FF4148] group-hover:gap-2.5 transition-all">
-                      <span>Book Test →</span>
+                      <span>Contact Us →</span>
                     </Link>
                   </div>
                 </div>
@@ -1224,7 +1284,7 @@ function ServicesSection() {
                   </div>
                   <div className="mt-6 pt-2">
                     <Link to="/book-appointment?service=tmt-diagnostics" className="inline-flex items-center gap-1.5 text-xs font-extrabold text-[#E92932] group-hover:text-[#FF4148] group-hover:gap-2.5 transition-all">
-                      <span>Book Test →</span>
+                      <span>Contact Us →</span>
                     </Link>
                   </div>
                 </div>
@@ -2313,13 +2373,13 @@ function Appointment() {
         <div ref={ref} className={`reveal rounded-3xl p-8 lg:p-12 border shadow-2xl transition-all duration-500 hover:shadow-[0_30px_70px_rgba(0,0,0,0.3)] ${isLight ? 'bg-gradient-to-br from-white via-red-50/40 to-white border-slate-200/90 text-slate-900' : 'dark-glass-card border-white/20 text-white'
           }`}>
           <div className="text-center mb-8">
-            <div className="eyebrow mb-3">Book a Consultation</div>
+            <div className="eyebrow mb-3">Contact Us</div>
             <h2 className={`text-2xl lg:text-3xl xl:text-4xl font-bold mb-3 ${isLight ? 'text-slate-900' : 'text-white'}`}>
               Your heart deserves attention<br />
               <em className="not-italic text-[#E92932]">before it demands it.</em>
             </h2>
             <p className={`text-base ${isLight ? 'text-slate-600 font-medium' : 'text-slate-300'}`}>
-              Book a consultation with Dr. Sree Ranga P.C. — available Monday through Sunday.
+              Connect directly with Dr. Sree Ranga P.C. — available Monday through Sunday.
             </p>
           </div>
 
@@ -2344,7 +2404,7 @@ function Appointment() {
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link to="/book-appointment" className="inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-full font-semibold text-white transition-all duration-300 hover:scale-105 btn-shine bg-[#E92932] shadow-[0_8px_30px_rgba(233,41,50,0.4)]">
-              Book an Appointment <ArrowRight size={16} color="white" />
+              Contact Us <ArrowRight size={16} color="white" />
             </Link>
             <a href={`https://wa.me/${CLINIC_INFO.phoneTel.replace(/[^0-9]/g, '')}`} target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-full font-semibold transition-all duration-300 hover:scale-105 border border-[#25D366]/40 text-[#25D366] bg-[#25D366]/10">
               <WhatsAppIcon size={18} /> WhatsApp Us
@@ -2559,10 +2619,10 @@ export function Home() {
     <div className="min-h-full">
       <Hero />
       <BannerSlideshow />
-      <StatsSection />
       <About />
-      <ServicesSection />
       <WhyChooseUs />
+      <StatsSection />
+      <ServicesSection />
       <ResearchAcademicSection />
       <PatientJourneySection />
       <PreventiveCardiologySection />

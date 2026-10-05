@@ -153,7 +153,7 @@ export const SERVICES = [
     name: "Cardiology Consultation",
     description: "Comprehensive evaluation of symptoms, medical history, cardiovascular risk factors and existing cardiac conditions.",
     duration: "30 mins",
-    cta: "Book Consultation",
+    cta: "Contact Us",
     linkType: "consultation",
   },
   {
@@ -161,7 +161,7 @@ export const SERVICES = [
     name: "Heart Health Assessment",
     description: "Evaluation of cardiovascular risk factors and overall heart health.",
     duration: "30 mins",
-    cta: "Book Consultation",
+    cta: "Contact Us",
     linkType: "consultation",
   },
   {
@@ -169,7 +169,7 @@ export const SERVICES = [
     name: "Chest Pain Evaluation",
     description: "Assessment of chest discomfort and related symptoms that may require cardiac evaluation.",
     duration: "30 mins",
-    cta: "Book Consultation",
+    cta: "Contact Us",
     linkType: "consultation",
   },
   {
@@ -177,7 +177,7 @@ export const SERVICES = [
     name: "Hypertension Management",
     description: "Assessment and management of high blood pressure and its cardiovascular implications.",
     duration: "30 mins",
-    cta: "Book Consultation",
+    cta: "Contact Us",
     linkType: "consultation",
   },
   {
@@ -185,7 +185,7 @@ export const SERVICES = [
     name: "Diabetes & Heart Risk Assessment",
     description: "Cardiovascular assessment for individuals with diabetes or metabolic risk factors.",
     duration: "30 mins",
-    cta: "Book Consultation",
+    cta: "Contact Us",
     linkType: "consultation",
   },
   {
@@ -193,7 +193,7 @@ export const SERVICES = [
     name: "Cholesterol Management",
     description: "Evaluation and management planning for abnormal cholesterol and lipid levels.",
     duration: "30 mins",
-    cta: "Book Consultation",
+    cta: "Contact Us",
     linkType: "consultation",
   },
   {
@@ -201,7 +201,7 @@ export const SERVICES = [
     name: "Preventive Cardiology",
     description: "Risk assessment and lifestyle-focused strategies aimed at reducing future cardiovascular risk.",
     duration: "30 mins",
-    cta: "Book Consultation",
+    cta: "Contact Us",
     linkType: "consultation",
   },
   {
@@ -209,7 +209,7 @@ export const SERVICES = [
     name: "ECG (Electrocardiogram)",
     description: "A quick, non-invasive test that records the electrical activity, heart rate and rhythm of the heart.",
     duration: "30 mins",
-    cta: "Book Test",
+    cta: "Contact Us",
     linkType: "test",
   },
   {
@@ -217,7 +217,7 @@ export const SERVICES = [
     name: "ECHO (Echocardiography)",
     description: "Ultrasound imaging used to evaluate the heart's structure, valves and pumping function.",
     duration: "30 mins",
-    cta: "Book Test",
+    cta: "Contact Us",
     linkType: "test",
   },
   {
@@ -225,7 +225,7 @@ export const SERVICES = [
     name: "TMT (Treadmill Test)",
     description: "Exercise-based cardiac testing used to assess heart response during physical activity.",
     duration: "30 mins",
-    cta: "Book Test",
+    cta: "Contact Us",
     linkType: "test",
   },
   {
@@ -233,7 +233,7 @@ export const SERVICES = [
     name: "Chest X-Ray",
     description: "Chest radiography to assist in evaluating the lungs, heart size and other structures within the chest.",
     duration: "30 mins",
-    cta: "Book Test",
+    cta: "Contact Us",
     linkType: "test",
   },
   {
@@ -241,7 +241,7 @@ export const SERVICES = [
     name: "Blood Tests & Laboratory Investigations",
     description: "Comprehensive laboratory testing covering routine and specialised blood investigations (CBC, HbA1c, Lipid Profile, LFT, KFT, Thyroid, Vitamins, etc.).",
     duration: "30 mins",
-    cta: "Book Test",
+    cta: "Contact Us",
     linkType: "test",
   },
 ];
@@ -270,28 +270,28 @@ export const DIAGNOSTIC_TESTS = [
     id: "chest-xray",
     name: "Chest X-Ray",
     description: "Chest radiography to assist in evaluating the lungs, heart size and other structures within the chest.",
-    cta: "Book Test",
+    cta: "Contact Us",
     iconType: "xray",
   },
   {
     id: "ecg-small",
     name: "ECG (Electrocardiogram)",
     description: "Assessment of heart rate, rhythm and electrical activity.",
-    cta: "Book Test",
+    cta: "Contact Us",
     iconType: "ecg",
   },
   {
     id: "echo-small",
     name: "ECHO (Echocardiography)",
     description: "Evaluation of cardiac structure and function.",
-    cta: "Book Test",
+    cta: "Contact Us",
     iconType: "echo",
   },
   {
     id: "tmt-small",
     name: "TMT (Treadmill Test)",
     description: "Assessment of cardiac response to exercise when clinically indicated.",
-    cta: "Book Test",
+    cta: "Contact Us",
     iconType: "tmt",
   },
 ];
@@ -501,7 +501,7 @@ export const PUBLISHED_RESEARCH_PAPERS = [
 ];
 
 export const PATIENT_JOURNEY = [
-  { num: "01", title: "Book Consultation", desc: "Schedule an appointment with Dr. Sree Ranga P.C. online or via phone." },
+  { num: "01", title: "Contact Us", desc: "Reach out to Dr. Sree Ranga P.C. online or via phone to connect with our clinical team." },
   { num: "02", title: "Initial Evaluation", desc: "Discuss your symptoms, medical history, and cardiovascular risk factors." },
   { num: "03", title: "Diagnostic Assessment", desc: "If required, appropriate clinical investigations may be recommended." },
   { num: "04", title: "Diagnosis & Treatment Plan", desc: "Understand your condition clearly and receive a personalized treatment approach." },

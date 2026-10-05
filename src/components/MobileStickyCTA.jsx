@@ -18,7 +18,7 @@ export function MobileStickyCTA() {
         className="flex items-center justify-center gap-2 rounded-full bg-[#E92932] text-white font-semibold py-3 shadow-lg shadow-[#E92932]/40 hover:bg-[#FF4148] transition-colors"
       >
         <CalendarCheck className="h-4.5 w-4.5" />
-        Book Appointment
+        Contact Us
       </Link>
     </div>
   );

@@ -56,7 +56,7 @@ export function AboutPage() {
               to="/book-appointment"
               className="inline-flex items-center gap-2 bg-[#E52323] hover:bg-[#D01A1A] text-white px-6 py-3 rounded-full text-xs sm:text-sm font-bold shadow-lg shadow-red-500/25 transition-all hover:scale-105"
             >
-              Book Consultation <ArrowRight size={15} />
+              Contact Us <ArrowRight size={15} />
             </Link>
             <Link
               to="/"
@@ -520,7 +520,7 @@ export function AboutPage() {
                 to="/book-appointment"
                 className="inline-flex items-center gap-2 bg-[#E52323] hover:bg-[#D01A1A] text-white px-7 py-3.5 rounded-full text-xs sm:text-sm font-bold shadow-lg transition-transform hover:scale-105"
               >
-                Book Appointment Now <ArrowRight size={16} />
+                Contact Us <ArrowRight size={16} />
               </Link>
             </div>
           </div>

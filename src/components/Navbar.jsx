@@ -97,7 +97,7 @@ export function Navbar() {
             to="/book-appointment"
             className="inline-flex items-center justify-center rounded-full bg-[#E92932] px-6 py-2.5 text-sm font-semibold text-white shadow-[0_0_20px_rgba(233,41,50,0.5)] transition-all transform hover:scale-105 hover:bg-[#FF4148] hover:shadow-[0_0_28px_rgba(255,65,72,0.7)] active:scale-95"
           >
-            Book Appointment
+            Contact Us
           </Link>
         </div>
 
@@ -134,7 +134,7 @@ export function Navbar() {
               onClick={() => setMobileMenuOpen(false)}
               className="flex items-center justify-center rounded-full bg-[#E92932] px-5 py-3 text-sm font-semibold text-white shadow-[0_0_20px_rgba(233,41,50,0.5)]"
             >
-              Book Appointment
+              Contact Us
             </Link>
           </div>
         </div>
